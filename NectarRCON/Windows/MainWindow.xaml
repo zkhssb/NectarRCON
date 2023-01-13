@@ -1,0 +1,148 @@
+﻿<ui:UiWindow x:Class="NectarRCON.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:NectarRCON"
+        mc:Ignorable="d"
+        Title="{DynamicResource ui.window.title}"
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
+		WindowCornerPreference="Round"
+		WindowStartupLocation="CenterScreen"
+        MinHeight="690" 
+        MinWidth="650"
+        Height="690" 
+        Width="650">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ViewModel.LoadCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ui:TitleBar 
+            Icon="pack://application:,,,/Resources/Icon.png"
+            FontSize="14"
+            Title="{DynamicResource ui.window.title}"
+            Grid.Row="0"/>
+        <Menu
+            Grid.Row="1"
+            Focusable="False">
+            <MenuItem
+                Focusable="False"
+                Header="{DynamicResource ui.menu.server_list}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger
+                            EventName="Click">
+                        <i:InvokeCommandAction
+                                CommandParameter="2"
+                                Command="{Binding ViewModel.ChangePageCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>   
+            </MenuItem>
+            <MenuItem
+                IsEnabled="{Binding ViewModel.MainPageIsLoaded}"
+                Focusable="False"
+                Header="{DynamicResource ui.menu.log}">
+                <MenuItem 
+                    Width="120"
+                    Header="{DynamicResource ui.menu.log.clear}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger
+                            EventName="Click">
+                            <i:InvokeCommandAction
+                                Command="{Binding ViewModel.ClearButtonClickCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem 
+                Focusable="False"
+                Header="{DynamicResource ui.menu.program}">
+                <MenuItem 
+                    Width="120"
+                    Header="{DynamicResource ui.menu.program.settings}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger
+                            EventName="Click">
+                            <i:InvokeCommandAction
+                                CommandParameter="1"
+                                Command="{Binding ViewModel.ChangePageCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem 
+                    Width="120"
+                    Header="{DynamicResource ui.menu.program.about}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger
+                            EventName="Click">
+                            <i:InvokeCommandAction
+                                CommandParameter="3"
+                                Command="{Binding ViewModel.ChangePageCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem 
+                    Width="120"
+                    IsEnabled="False"
+                    Header="{DynamicResource ui.menu.program.check_update}"/>
+            </MenuItem>
+        </Menu>
+        <ui:NavigationCompact
+            Visibility="Hidden"
+            Height="1"
+            Width="1"
+            x:Name="RootNavigation"
+            Items="{Binding ViewModel.NavigationItems, Mode=TwoWay}"
+            Frame="{Binding ElementName=MainFrame,Mode=OneWay}"/>
+        <Frame
+            x:Name="MainFrame"
+            Grid.Row="2"/>
+        <Grid 
+            Visibility="Hidden"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            x:Name="ConnectingDialog">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Offset="0.0" Color="#CF202020" />
+                    <GradientStop Offset="1.0" Color="#8F202020" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Border
+                CornerRadius="5"
+                Height="150"
+                Width="200">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource SystemFillColorSolidNeutralBackground}"/>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="30"
+                        Direction="0"
+                        Opacity="0.4"
+                        ShadowDepth="0"
+                        Color="#202020" />
+                </Border.Effect>
+                <StackPanel>
+                    <ui:ProgressRing 
+                        Margin="0,30,0,0"
+                        IsIndeterminate="True"/>
+                    <TextBlock 
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="16"
+                        Text="{DynamicResource text.server.connect.ing}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</ui:UiWindow>

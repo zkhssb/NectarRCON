@@ -1,0 +1,82 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <sys:String x:Key="file.language">en_us</sys:String>
+    <sys:String x:Key="file.name">English US(en_us)</sys:String>
+    <sys:String x:Key="ui.menu.server_list">Servers...</sys:String>
+    <sys:String x:Key="ui.menu.log">Log</sys:String>
+    <sys:String x:Key="ui.menu.log.clear">Clear</sys:String>
+    <sys:String x:Key="ui.menu.program">Program</sys:String>
+    <sys:String x:Key="ui.menu.program.settings">Settings</sys:String>
+    <sys:String x:Key="ui.menu.program.about">About...</sys:String>
+    <sys:String x:Key="ui.menu.program.check_update">CheckUpdate</sys:String>
+    <sys:String x:Key="ui.window.title">RCONManager</sys:String>
+    <sys:String x:Key="ui.settings.language">UI Language</sys:String>
+    <sys:String x:Key="ui.settings.theme">UI Theme</sys:String>
+    <sys:String x:Key="ui.settings.theme.dark">Dark Theme</sys:String>
+    <sys:String x:Key="ui.settings.theme.light">Light Theme</sys:String>
+    <sys:String x:Key="ui.settings.theme.auto">System Theme</sys:String>
+    <sys:String x:Key="ui.settings.rcon_account">Rcon passwords...</sys:String>
+    <sys:String x:Key="ui.settings.command_record_limit">Command Record Limit</sys:String>
+
+    <sys:String x:Key="ui.server_page.menu.open">Connect</sys:String>
+    <sys:String x:Key="ui.server_page.menu.edit">Edit</sys:String>
+    <sys:String x:Key="ui.server_page.menu.delete">Delete</sys:String>
+    <sys:String x:Key="ui.server_page.menu.edit_password">EditPassword</sys:String>
+    <sys:String x:Key="ui.server_page.text">Servers</sys:String>
+    <sys:String x:Key="ui.server_page.add">Add Server</sys:String>
+    <sys:String x:Key="ui.server_page.search">Search by server name...</sys:String>
+    <sys:String x:Key="ui.server_page.confirm">This action will delete the server! (including recorded password)\nAre you sure you want to delete?</sys:String>
+    
+    <sys:String x:Key="ui.add_server_window.title">Add Server</sys:String>
+    <sys:String x:Key="ui.add_server_window.name">Name</sys:String>
+    <sys:String x:Key="ui.add_server_window.address">Address</sys:String>
+    <sys:String x:Key="ui.add_server_window.port">Port</sys:String>
+    <sys:String x:Key="ui.add_server_window.add">Add</sys:String>
+    <sys:String x:Key="ui.add_server_window.cancel">Cancel</sys:String>
+    <sys:String x:Key="ui.add_server_window.already_exist">A server with the same name already exists, please change your name!</sys:String>
+    <sys:String x:Key="ui.add_server_window.null_text">Server name or server address cannot be empty, please change it!</sys:String>
+
+    <sys:String x:Key="ui.about.afdian">Afdian</sys:String>
+    <sys:String x:Key="ui.about.mcbbs">MCBBS</sys:String>
+
+    <sys:String x:Key="ui.text.format_exception">An error was encountered while parsing the destination address: %s\nPlease check whether the server address is legal!</sys:String>
+
+    <sys:String x:Key="ui.edit_password.title">Edit Password</sys:String>
+    <sys:String x:Key="ui.edit_password.text">Password</sys:String>
+    <sys:String x:Key="ui.edit_password.is_empty">Empty Pass</sys:String>
+
+    <sys:String x:Key="ui.main_page.run">Run</sys:String>
+    <sys:String x:Key="ui.main_page.successful">Successful!</sys:String>
+
+    <sys:String x:Key="ui.edit_server_window.title">Edit</sys:String>
+
+    <sys:String x:Key="text.error">Error</sys:String>
+    <sys:String x:Key="text.warn">Warning</sys:String>
+    <sys:String x:Key="text.info">Information</sys:String>
+    <sys:String x:Key="text.ok">Ok</sys:String>
+    <sys:String x:Key="text.cancel">Cancel</sys:String>
+    <sys:String x:Key="text.not_available">Not Available</sys:String>
+
+    <sys:String x:Key="text.server.connect.ing">Connecting...</sys:String>
+    <sys:String x:Key="text.server.connect.fail">Failed to connect to the server!</sys:String>
+    <sys:String x:Key="text.server.connect.fail.text">Unable to connect to the remote server: %s\nPlease check that the server RCON address is configured correctly, and check that the server has enabled the RCON option!</sys:String>
+    <sys:String x:Key="text.server.connect.auth_fail">The Rcon password is incorrect, please check whether your server password is correct!</sys:String>
+
+    <sys:String x:Key="text.server.connected">Connected to the server and authenticated successfully!</sys:String>
+    <sys:String x:Key="text.server.closed">The connection is disconnected!</sys:String>
+    
+    <sys:String x:Key="text.server.not_connect.text">You cannot connect to the server, so you cannot use the remote command function, please try to go back to the server list and reconnect to this server!</sys:String>
+
+    <sys:String x:Key="text.server_information.error.json_error">Unable to instantiate server list /servers.json %s\nClick "Yes" to reset the server list (you need to re-add the server, but the recorded password will not disappear)\nClick "Cancel" to close the program!</sys:String>
+    <sys:String x:Key="text.server_information.error.text">Unable to instantiate server list /servers.json %s\nClick "Yes" to close the program!</sys:String>
+    <sys:String x:Key="text.server_information.error.save">Unable to save file /servers.json\nIf you just added a server, please note that this save is not in effect!\n%s</sys:String>
+
+    <sys:String x:Key="text.password.error.json_error">Unable to resolve password list /passwords.json %s\nClick "Yes" to reset the password list (password needs to be reset, but the recorded server will not disappear)\nClick "Cancel" to close the program!</sys:String>
+    <sys:String x:Key="text.password.error.text">Unable to resolve password list /passwords.json %s\nClick "Yes" to close the program!</sys:String>
+    <sys:String x:Key="text.password.error.save">Unable to save file /passwords.json\nIf you have just set a password, please note that this save is not in effect!\n%s</sys:String>
+
+    <sys:String x:Key="text.config.json_error">Unable to resolve configuration file /config.json JSON parsing failed: %s\nClick "Yes" to reset the profile!\nClick "No" to exit the program!</sys:String>
+    <sys:String x:Key="text.config.error">Unable to parse configuration file /config.json: %s\nClick "Yes" to reset the profile!\nClick "No" to exit the program!</sys:String>
+    <sys:String x:Key="text.config.save_error">Unable to save configuration file /config.json: %s\nIf you have just changed the configuration file, please note that the save does not take effect!</sys:String>
+</ResourceDictionary>

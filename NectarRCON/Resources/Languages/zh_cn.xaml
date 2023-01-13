@@ -1,0 +1,82 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <sys:String x:Key="file.language">zh_cn</sys:String>
+    <sys:String x:Key="file.name">简体中文(zh_cn)</sys:String>
+    <sys:String x:Key="ui.menu.server_list">服务器列表</sys:String>
+    <sys:String x:Key="ui.menu.log">日志</sys:String>
+    <sys:String x:Key="ui.menu.log.clear">清空日志</sys:String>
+    <sys:String x:Key="ui.menu.program">程序</sys:String>
+    <sys:String x:Key="ui.menu.program.settings">设置</sys:String>
+    <sys:String x:Key="ui.menu.program.about">关于</sys:String>
+    <sys:String x:Key="ui.menu.program.check_update">检查更新</sys:String>
+    <sys:String x:Key="ui.window.title">RCON管理器</sys:String>
+    <sys:String x:Key="ui.settings.language">UI语言</sys:String>
+    <sys:String x:Key="ui.settings.theme">UI主题</sys:String>
+    <sys:String x:Key="ui.settings.theme.dark">深色主题</sys:String>
+    <sys:String x:Key="ui.settings.theme.light">浅色主题</sys:String>
+    <sys:String x:Key="ui.settings.theme.auto">跟随系统</sys:String>
+    <sys:String x:Key="ui.settings.rcon_account">Rcon密码管理</sys:String>
+    <sys:String x:Key="ui.settings.command_record_limit">服务器命令回溯记录数</sys:String>
+
+    <sys:String x:Key="ui.server_page.menu.open">连接</sys:String>
+    <sys:String x:Key="ui.server_page.menu.edit">编辑</sys:String>
+    <sys:String x:Key="ui.server_page.menu.delete">删除</sys:String>
+    <sys:String x:Key="ui.server_page.menu.edit_password">密码</sys:String>
+    <sys:String x:Key="ui.server_page.text">服务器列表</sys:String>
+    <sys:String x:Key="ui.server_page.add">添加服务器</sys:String>
+    <sys:String x:Key="ui.server_page.search">输入服务器名字来搜索...</sys:String>
+    <sys:String x:Key="ui.server_page.confirm">此操作将会删除服务器! (包括记录的密码)\n您确定要删除吗?</sys:String>
+    
+    <sys:String x:Key="ui.add_server_window.title">添加服务器</sys:String>
+    <sys:String x:Key="ui.add_server_window.name">服务器名称</sys:String>
+    <sys:String x:Key="ui.add_server_window.address">服务器地址</sys:String>
+    <sys:String x:Key="ui.add_server_window.port">服务器端口</sys:String>
+    <sys:String x:Key="ui.add_server_window.add">新建</sys:String>
+    <sys:String x:Key="ui.add_server_window.cancel">取消</sys:String>
+    <sys:String x:Key="ui.add_server_window.already_exist">相同名字的服务器已存在,请换一个名字!</sys:String>
+    <sys:String x:Key="ui.add_server_window.null_text">服务器名称或服务器地址不可为空,请更改!</sys:String>
+
+    <sys:String x:Key="ui.about.afdian">爱发电</sys:String>
+    <sys:String x:Key="ui.about.mcbbs">MCBBS</sys:String>
+
+    <sys:String x:Key="ui.text.format_exception">解析目标地址时遇到错误: %s\n请检查服务器地址是否合法!</sys:String>
+    
+    <sys:String x:Key="ui.edit_password.title">编辑密码</sys:String>
+    <sys:String x:Key="ui.edit_password.text">密码</sys:String>
+    <sys:String x:Key="ui.edit_password.is_empty">无需密码</sys:String>
+    
+    <sys:String x:Key="ui.main_page.run">执行</sys:String>
+    <sys:String x:Key="ui.main_page.successful">执行成功</sys:String>
+    
+    <sys:String x:Key="ui.edit_server_window.title">编辑</sys:String>
+
+    <sys:String x:Key="text.error">错误</sys:String>
+    <sys:String x:Key="text.warn">警告</sys:String>
+    <sys:String x:Key="text.info">信息</sys:String>
+    <sys:String x:Key="text.ok">确定</sys:String>
+    <sys:String x:Key="text.cancel">取消</sys:String>
+    <sys:String x:Key="text.not_available">不可使用</sys:String>
+
+    <sys:String x:Key="text.server.connect.ing">正在连接服务器...</sys:String>
+    <sys:String x:Key="text.server.connect.fail">连接服务器失败!</sys:String>
+    <sys:String x:Key="text.server.connect.fail.text">无法连接到远程服务器: %s\n请检查服务器RCON地址配置是否正确,以及检查服务端是否开启了RCON选项!</sys:String>
+    <sys:String x:Key="text.server.connect.auth_fail">Rcon密码错误,请检查您的服务器密码是否正确!</sys:String>
+
+    <sys:String x:Key="text.server.connected">连接服务器并认证成功!</sys:String>
+    <sys:String x:Key="text.server.closed">连接已断开!</sys:String>
+
+    <sys:String x:Key="text.server.not_connect.text">无法连接到服务器,因此无法使用远程命令功能,请尝试回到服务器列表重新连接到本服务器!</sys:String>
+
+    <sys:String x:Key="text.server_information.error.json_error">无法解析服务器列表 /servers.json %s\n点击"是"重置服务器列表(需重新添加服务器,但记录的密码不会消失)\n点击"取消"关闭程序!</sys:String>
+    <sys:String x:Key="text.server_information.error.text">无法解析服务器列表 /servers.json %s\n点击"是"关闭程序!</sys:String>
+    <sys:String x:Key="text.server_information.error.save">无法保存文件 /servers.json\n如果您刚刚进行了添加服务器操作,请注意,本次保存并未生效!\n%s</sys:String>
+
+    <sys:String x:Key="text.password.error.json_error">无法解析密码列表 /passwords.json %s\n点击"是"重置密码列表(需重新设置密码,但记录的服务器不会消失)\n点击"取消"关闭程序!</sys:String>
+    <sys:String x:Key="text.password.error.text">无法解析密码列表 /passwords.json %s\n点击"是"关闭程序!</sys:String>
+    <sys:String x:Key="text.password.error.save">无法保存文件 /passwords.json\n如果您刚刚进行了设置密码操作,请注意,本次保存并未生效!\n%s</sys:String>
+
+    <sys:String x:Key="text.config.json_error">无法解析配置文件 /config.json JSON解析失败: %s\n点击"是"重置配置文件!\n点击"否"退出程序!</sys:String>
+    <sys:String x:Key="text.config.error">无法解析配置文件 /config.json: %s\n点击"是"重置配置文件!\n点击"否"退出程序!</sys:String>
+    <sys:String x:Key="text.config.save_error">无法保存配置文件 /config.json: %s\n如果您刚刚更改了配置文件,请注意,保存并未生效!</sys:String>
+</ResourceDictionary>
