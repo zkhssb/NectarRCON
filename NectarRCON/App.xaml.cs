@@ -1,13 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NectarRCON.Interfaces;
 using NectarRCON.Services;
 using NectarRCON.ViewModels;
 using NectarRCON.Views.Pages;
 using NectarRCON.Windows;
-using System.IO;
-using System.Reflection;
 using System.Windows;
 using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Mvvm.Services;

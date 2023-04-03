@@ -1,12 +1,10 @@
-﻿using NectarRCON.Interfaces;
+﻿using CoreRCON;
+using NectarRCON.Interfaces;
 using NectarRCON.Models;
-using CoreRCON;
-using System.Threading.Tasks;
-using System.Net;
 using System;
+using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
-using Wpf.Ui.Mvvm.Contracts;
-using Wpf.Ui.Controls.Interfaces;
 
 namespace NectarRCON.Services;
 public class RconConnectService : IRconConnectService

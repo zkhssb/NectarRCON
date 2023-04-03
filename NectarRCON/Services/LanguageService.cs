@@ -3,15 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
-using System.Windows.Markup;
-using System.Xaml;
 
 namespace NectarRCON.Services;
 public class LanguageService : ILanguageService
 {
-    private readonly Dictionary<string, string> _defaultLanguages = new ();
+    private readonly Dictionary<string, string> _defaultLanguages = new();
     private Dictionary<string, ResourceDictionary> _languages = new();
     private ResourceDictionary _selectedLanguage = new ResourceDictionary()
     {
@@ -33,7 +30,7 @@ public class LanguageService : ILanguageService
     {
         get => _languages;
     }
-    public Dictionary<string, ResourceDictionary> GetLanguages() 
+    public Dictionary<string, ResourceDictionary> GetLanguages()
         => Languages;
     public ResourceDictionary GetSelectedLanguage()
     {
@@ -44,11 +41,11 @@ public class LanguageService : ILanguageService
         _languages.Clear();
         // 从本地目录获取xaml
         string[] files = new string[0];
-        if(Directory.Exists("./languages/"))
+        if (Directory.Exists("./languages/"))
             files = Directory.GetFiles("./languages/");
-        foreach(string file in files)
+        foreach (string file in files)
         {
-            if(Path.GetExtension(file).ToLower() == ".xaml" || Path.GetExtension(file).ToLower() == ".xml")
+            if (Path.GetExtension(file).ToLower() == ".xaml" || Path.GetExtension(file).ToLower() == ".xml")
             {
                 ResourceDictionary resourceDictionary = new ResourceDictionary();
                 using (FileStream fs = File.OpenRead(file))
@@ -61,11 +58,11 @@ public class LanguageService : ILanguageService
         // 从内部文件加载
         _defaultLanguages.Add("zh_cn", "pack://application:,,,/NectarRCON;component/Resources/Languages/zh_cn.xaml");
         _defaultLanguages.Add("en_us", "pack://application:,,,/NectarRCON;component/Resources/Languages/en_us.xaml");
-        foreach(KeyValuePair<string, string> language in _defaultLanguages)
+        foreach (KeyValuePair<string, string> language in _defaultLanguages)
         {
-            if(_languages.ContainsKey(language.Key))
+            if (_languages.ContainsKey(language.Key))
                 _languages.Remove(language.Key);
-            Languages.Add(language.Key , new ResourceDictionary()
+            Languages.Add(language.Key, new ResourceDictionary()
             {
                 Source = new Uri(language.Value, UriKind.RelativeOrAbsolute)
             });
@@ -92,7 +89,7 @@ public class LanguageService : ILanguageService
                 return l.Key.ToLower() == languageName.ToLower();
             }
         }).FirstOrDefault();
-        if(null == language.Value)
+        if (null == language.Value)
         {
             _selectedLanguage = new ResourceDictionary()
             {

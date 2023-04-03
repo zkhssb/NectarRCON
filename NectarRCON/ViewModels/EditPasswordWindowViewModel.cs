@@ -2,13 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
-using NectarRCON.Services;
 using NectarRCON.Windows;
-using System.Windows;
-using Wpf.Ui.Controls;
 
 namespace NectarRCON.ViewModels;
-public partial class EditPasswordWindowViewModel:ObservableObject
+public partial class EditPasswordWindowViewModel : ObservableObject
 {
     private readonly IServerPasswordService _serverPasswordService;
     private readonly ServerInformation _serverInformation;
@@ -23,7 +20,7 @@ public partial class EditPasswordWindowViewModel:ObservableObject
         _serverPasswordService = App.GetService<IServerPasswordService>();
         _serverInformation = _serverPasswordService.GetSelect()!;
         var password = _serverPasswordService.Get(_serverInformation);
-        if(password != null)
+        if (password != null)
         {
             Password = password.Password;
             IsEmpty = string.IsNullOrEmpty(Password);
@@ -36,7 +33,7 @@ public partial class EditPasswordWindowViewModel:ObservableObject
     }
     public void SetWindow(EditPasswordWindow window)
     {
-        _window= window;
+        _window = window;
     }
     [RelayCommand]
     public void TextChange()

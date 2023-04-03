@@ -3,13 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using CoreRCON;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
-using NectarRCON.Services;
 using NectarRCON.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +14,7 @@ using Wpf.Ui.Controls;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace NectarRCON.ViewModels;
-public partial class ServersPageViewModel:ObservableObject
+public partial class ServersPageViewModel : ObservableObject
 {
     private readonly IServerInformationService _serverInformationService;
     private readonly IRconConnectService _conConnectService;
@@ -77,7 +72,7 @@ public partial class ServersPageViewModel:ObservableObject
     }
     private ContextMenu? GetRoot(DependencyObject menu)
     {
-        if(menu is CardAction) { return (ContextMenu)menu; }
+        if (menu is CardAction) { return (ContextMenu)menu; }
 
         DependencyObject root = menu;
         for (int i = 0; i < 20; i++)
@@ -119,7 +114,7 @@ public partial class ServersPageViewModel:ObservableObject
         CardAction card = (CardAction)e.Source;
         var nameText = (TextBlock)LogicalTreeHelper.FindLogicalNode(card, "Name");
         ServerInformation? server = _serverInformationService.GetServer(nameText.Text);
-        if(null != server)
+        if (null != server)
         {
             await Connect(server);
         }
@@ -153,8 +148,8 @@ public partial class ServersPageViewModel:ObservableObject
     {
         var serverInfo = GetServerInformation(e);
         if (null == serverInfo) return;
-        var result =System.Windows.MessageBox.Show(_languageService.GetKey("ui.server_page.confirm"), _languageService.GetKey("ui.server_page.menu.delete"), MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if(result== MessageBoxResult.Yes)
+        var result = System.Windows.MessageBox.Show(_languageService.GetKey("ui.server_page.confirm"), _languageService.GetKey("ui.server_page.menu.delete"), MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result == MessageBoxResult.Yes)
         {
             _serverInformationService.RemoveServer(serverInfo.Name);
             _serverInformationService.Save();
@@ -175,10 +170,11 @@ public partial class ServersPageViewModel:ObservableObject
                 _conConnectService.Close();
             }
             var server = _serverPasswordService.Get(information);
-            if(server == null)
+            if (server == null)
             {
                 EditPass(information);
-            }else if(server.Password == null && !server.IsEmpty)
+            }
+            else if (server.Password == null && !server.IsEmpty)
             {
                 EditPass(information);
             }
@@ -186,12 +182,14 @@ public partial class ServersPageViewModel:ObservableObject
             _serverPasswordService.Select(information);
             if (_conConnectService.IsConnected())
                 _navigationService.Navigate(0);
-        }catch(SocketException ex)
+        }
+        catch (SocketException ex)
         {
             System.Windows.MessageBox.Show(_languageService.GetKey("text.server.connect.fail.text")
-                .Replace("\\n","\n")
+                .Replace("\\n", "\n")
                 .Replace("%s", ex.Message), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
-        }catch(AuthenticationException)
+        }
+        catch (AuthenticationException)
         {
             System.Windows.MessageBox.Show(_languageService.GetKey("text.server.connect.auth_fail")
             .Replace("\\n", "\n"), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);

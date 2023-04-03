@@ -6,7 +6,7 @@ using NectarRCON.Windows;
 using System.Windows;
 
 namespace NectarRCON.ViewModels;
-public partial class AddServerWindowViewModel:ObservableObject
+public partial class AddServerWindowViewModel : ObservableObject
 {
     private readonly IServerInformationService _serverInformationService;
     private readonly ILanguageService _languageService;
@@ -29,7 +29,7 @@ public partial class AddServerWindowViewModel:ObservableObject
     [RelayCommand]
     public void Ok()
     {
-        if(string.IsNullOrWhiteSpace(_serverName) || string.IsNullOrWhiteSpace(_serverAddress))
+        if (string.IsNullOrWhiteSpace(_serverName) || string.IsNullOrWhiteSpace(_serverAddress))
         {
             MessageBox.Show(_languageService.GetKey("ui.add_server_window.null_text"), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
             return;

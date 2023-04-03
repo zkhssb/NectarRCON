@@ -20,11 +20,11 @@ public partial class ConfigService : IConfigService
             _config = JsonSerializer.Deserialize<Config>(File.ReadAllText("./config.json"))
             ?? new Config();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            var resutl = MessageBox.Show(_languageService.GetKey(ex.GetType() == typeof(JsonException)? "text.config.json_error" : "text.config.error")
+            var resutl = MessageBox.Show(_languageService.GetKey(ex.GetType() == typeof(JsonException) ? "text.config.json_error" : "text.config.error")
             .Replace("%s", ex.Message), _languageService.GetKey("text.error"), MessageBoxButton.YesNo, MessageBoxImage.Error);
-            if(resutl == MessageBoxResult.Yes)
+            if (resutl == MessageBoxResult.Yes)
             {
                 _config = new();
                 Save();
@@ -42,7 +42,8 @@ public partial class ConfigService : IConfigService
         try
         {
             File.WriteAllText("./config.json", JsonSerializer.Serialize(_config));
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             MessageBox.Show(_languageService.GetKey("text.config.save_error")
                 .Replace("%s", ex.Message), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);

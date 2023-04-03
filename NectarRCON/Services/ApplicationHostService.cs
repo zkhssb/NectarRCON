@@ -1,20 +1,17 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using NectarRCON.Helper;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace NectarRCON.Services;
-public class ApplicationHostService: IHostedService
+public class ApplicationHostService : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly INavigationService _navigationService;
@@ -54,7 +51,7 @@ public class ApplicationHostService: IHostedService
             default:
                 break;
         }
-        if(_configService.GetConfig().LanguageName == string.Empty)
+        if (_configService.GetConfig().LanguageName == string.Empty)
         {
             _languageService.SelectLanguage();
             _configService.GetConfig().LanguageName = _languageService.GetKey("file.language");
@@ -74,7 +71,7 @@ public class ApplicationHostService: IHostedService
             _navigationWindow = (_serviceProvider.GetService(typeof(INavigationWindow)) as INavigationWindow)!;
             _navigationWindow!.ShowWindow();
         }
-        
+
         LoadConfig();
 
         await Task.CompletedTask;

@@ -3,19 +3,15 @@ using CommunityToolkit.Mvvm.Input;
 using NectarRCON.Helper;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Wpf.Ui.Controls;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace NectarRCON.ViewModels;
-public partial class SettingPageViewModel: ObservableObject
+public partial class SettingPageViewModel : ObservableObject
 {
     private bool _isLoaded = false;
     private readonly ILanguageService _languageService;

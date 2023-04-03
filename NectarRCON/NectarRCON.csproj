@@ -7,6 +7,7 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Version>1.0.0-beta1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,9 +34,6 @@
 
   <ItemGroup>
     <Page Update="Resources\Languages\en_us.xaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Resources\Languages\zh_cn.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
   </ItemGroup>

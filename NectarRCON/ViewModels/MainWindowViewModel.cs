@@ -3,8 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
-using NectarRCON.Views.Pages;
-using System;
 using System.Collections.ObjectModel;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
@@ -13,7 +11,7 @@ using Wpf.Ui.Mvvm.Contracts;
 
 namespace NectarRCON.ViewModels
 {
-    public partial class MainWindowViewModel:ObservableObject
+    public partial class MainWindowViewModel : ObservableObject
     {
         [ObservableProperty]
         private ObservableCollection<INavigationControl> _navigationItems = new();

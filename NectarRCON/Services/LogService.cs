@@ -1,12 +1,9 @@
 ﻿using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 namespace NectarRCON.Services;
 public class LogService : ILogService
@@ -24,7 +21,7 @@ public class LogService : ILogService
     }
     public string GetText()
     {
-        using(MemoryStream ms = new MemoryStream())
+        using (MemoryStream ms = new MemoryStream())
         {
             _logFileStream?.CopyTo(ms);
             return Encoding.UTF8.GetString(ms.ToArray());

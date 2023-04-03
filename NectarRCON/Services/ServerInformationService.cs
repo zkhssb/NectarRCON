@@ -13,7 +13,7 @@ public class ServerInformationService : IServerInformationService
 {
     private readonly ILanguageService _languageService;
     private List<ServerInformation> _servers = new();
-    public List<ServerInformation> Servers 
+    public List<ServerInformation> Servers
         => _servers;
     public ServerInformationService(ILanguageService languageService)
     {
@@ -26,16 +26,17 @@ public class ServerInformationService : IServerInformationService
             _servers = JsonSerializer.Deserialize<List<ServerInformation>>(jsonString)
                 ?? new List<ServerInformation>();
         }
-        catch(JsonException ex)
+        catch (JsonException ex)
         {
             MessageBoxResult result = MessageBox.Show(_languageService.GetKey("text.server_information.error.json_error")
                 .Replace("%s", ex.Message)
-                .Replace("\\n","\n"), _languageService.GetKey("text.error"), MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                .Replace("\\n", "\n"), _languageService.GetKey("text.error"), MessageBoxButton.OKCancel, MessageBoxImage.Error);
             if (result == MessageBoxResult.OK)
                 File.WriteAllText("./servers.json", "[]");
             else
                 Process.GetCurrentProcess().Kill();
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             MessageBox.Show(_languageService.GetKey("text.server_information.error.text")
                 .Replace("%s", ex.Message)
@@ -68,7 +69,8 @@ public class ServerInformationService : IServerInformationService
         try
         {
             File.WriteAllText("./servers.json", JsonSerializer.Serialize(_servers));
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             MessageBox.Show(_languageService.GetKey("text.server_information.error.save")
                 .Replace("%s", ex.Message)

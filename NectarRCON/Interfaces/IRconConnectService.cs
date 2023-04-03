@@ -1,9 +1,8 @@
 ﻿using NectarRCON.Models;
-using System;
 using System.Threading.Tasks;
 
 namespace NectarRCON.Interfaces;
-public delegate void MessageEvent(ServerInformation information,string message);
+public delegate void MessageEvent(ServerInformation information, string message);
 public delegate void EventEvent(ServerInformation information);
 public delegate void ClosedEvent(ServerInformation information);
 public interface IRconConnectService
