@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System;
 using System.Windows;
+using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui.Controls.Interfaces;
 
 namespace NectarRCON.Services;
 public class RconConnectService : IRconConnectService
@@ -89,8 +91,21 @@ public class RconConnectService : IRconConnectService
     {
         if (IsConnected() && _rconClient != null)
         {
-            string result = await _rconClient.SendCommandAsync(command) ?? string.Empty;
-            OnMessage?.Invoke(_serverInformation,result);
+            try
+            {
+                string result = await _rconClient.SendCommandAsync(command) ?? string.Empty;
+                OnMessage?.Invoke(_serverInformation, result);
+            }
+            catch (Exception ex)
+            {
+                Close();
+                MessageBox.Show($"{_languageService.GetKey("text.error")}\n{ex.Message}", ex.GetType().FullName, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        else
+        {
+            Close();
+            MessageBox.Show($"{_languageService.GetKey("text.server.not_connect.text")}", _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

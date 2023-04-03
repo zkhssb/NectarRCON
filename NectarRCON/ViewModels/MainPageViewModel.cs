@@ -35,13 +35,13 @@ public partial class MainPageViewModel : ObservableObject
     private string _commandText = string.Empty;
     [ObservableProperty]
     private string _logText = string.Empty;
-    public MainPageViewModel ()
+    public MainPageViewModel()
     {
-        _logService = App.GetService<ILogService> ();
-        _serverPasswordService = App.GetService<IServerPasswordService> ();
-        _rconConnectService = App.GetService<IRconConnectService> ();
-        _navigationService = App.GetService<INavigationService> ();
-        _languageService = App.GetService<ILanguageService> ();
+        _logService = App.GetService<ILogService>();
+        _serverPasswordService = App.GetService<IServerPasswordService>();
+        _rconConnectService = App.GetService<IRconConnectService>();
+        _navigationService = App.GetService<INavigationService>();
+        _languageService = App.GetService<ILanguageService>();
         WeakReferenceMessenger.Default.Register<ClearLogValueMessage>(this, OnClear);
     }
     public void OnClear(object sender, ClearLogValueMessage msg)
@@ -51,8 +51,8 @@ public partial class MainPageViewModel : ObservableObject
     }
     private void OnMessage(ServerInformation info, string msg)
     {
-        string logMsg = string.IsNullOrEmpty(msg) 
-            ? _languageService.GetKey("ui.main_page.successful") 
+        string logMsg = string.IsNullOrEmpty(msg)
+            ? _languageService.GetKey("ui.main_page.successful")
             : msg;
         LogText += _logService.Log(logMsg);
         _logTextBox?.ScrollToEnd();
@@ -76,7 +76,7 @@ public partial class MainPageViewModel : ObservableObject
         _logService.SetServer(_serverPasswordService.GetSelect());
         LogText = _logService.GetText();
 
-        if(!_rconConnectService.IsConnected())
+        if (!_rconConnectService.IsConnected())
         {
             _navigationService.Navigate(2);
         }
@@ -116,6 +116,7 @@ public partial class MainPageViewModel : ObservableObject
         }
         else
         {
+            _rconConnectService.Close();
             MessageBox.Show(_languageService.GetKey("text.server.not_connect.text"), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -124,7 +125,7 @@ public partial class MainPageViewModel : ObservableObject
     {
         var textBox = (System.Windows.Controls.TextBox)e.Source;
         _commandText = textBox.Text;
-        if(e.Key == Key.Enter)
+        if (e.Key == Key.Enter)
         {
             await Run();
         }
