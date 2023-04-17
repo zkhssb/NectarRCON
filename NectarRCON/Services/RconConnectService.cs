@@ -1,7 +1,10 @@
 ﻿using CoreRCON;
+using DnsClient;
+using Microsoft.Extensions.Hosting;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
@@ -51,7 +54,7 @@ public class RconConnectService : IRconConnectService
         {
             if (IsConnected() && _rconClient != null)
                 Close();
-            string address = info.Address;
+            string address = GetAddress(info.Address);
             if (address.ToLower() == "localhost")
                 address = "127.0.0.1";
             string password = string.Empty;
@@ -80,7 +83,41 @@ public class RconConnectService : IRconConnectService
         {
             _connecting = false;
         }
+
+        static string GetAddress(string host)
+        {
+            try
+            {
+                string srvAddress = $"_minecraft._tcp.{host}";
+                var lookup = new LookupClient();
+                var result = lookup.Query(srvAddress, QueryType.SRV);
+                var record = result.Answers.SrvRecords().FirstOrDefault();
+                if (record != null)
+                {
+                    IPAddress? ipAddress;
+                    if (IPAddress.TryParse(record.Target.Value, out ipAddress))
+                    {
+                        return ipAddress.ToString();
+                    }
+                    else
+                    {
+                        return AQuery(record.Target.Value);
+                    }
+                }
+            }
+            catch (DnsResponseException) { }
+            return host;
+        }
+
+        static string AQuery(string host)
+        {
+            var lookup = new LookupClient();
+            var result = lookup.Query(host, QueryType.A);
+            var record = result.Answers.ARecords().FirstOrDefault();
+            return record?.Address.ToString() ?? host;
+        }
     }
+
     public bool IsConnected()
         => _connected;
     public bool IsConnecting()
