@@ -16,7 +16,7 @@ public partial class MainPageViewModel : ObservableObject
 {
     private readonly ILogService _logService;
     private readonly IServerPasswordService _serverPasswordService;
-    private readonly IRconConnectService _rconConnectService;
+    private readonly IRconConnectionService _rconConnectService;
     private readonly INavigationService _navigationService;
     private readonly ILanguageService _languageService;
 
@@ -31,7 +31,7 @@ public partial class MainPageViewModel : ObservableObject
     {
         _logService = App.GetService<ILogService>();
         _serverPasswordService = App.GetService<IServerPasswordService>();
-        _rconConnectService = App.GetService<IRconConnectService>();
+        _rconConnectService = App.GetService<IRconConnectionService>();
         _navigationService = App.GetService<INavigationService>();
         _languageService = App.GetService<ILanguageService>();
         WeakReferenceMessenger.Default.Register<ClearLogValueMessage>(this, OnClear);

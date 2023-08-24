@@ -1,6 +1,5 @@
 ﻿using CoreRCON;
 using DnsClient;
-using Microsoft.Extensions.Hosting;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using System;
@@ -10,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace NectarRCON.Services;
-public class RconConnectService : IRconConnectService
+public class RconSingleConnectionService : IRconConnectionService
 {
     private readonly IServerPasswordService _serverPasswordService;
     private readonly ILanguageService _languageService;
 
-    public RconConnectService(IServerPasswordService serverPasswordService, ILanguageService languageService)
+    public RconSingleConnectionService(IServerPasswordService serverPasswordService, ILanguageService languageService)
     {
         _serverPasswordService = serverPasswordService;
         _languageService = languageService;

@@ -17,7 +17,7 @@ namespace NectarRCON.ViewModels;
 public partial class ServersPageViewModel : ObservableObject
 {
     private readonly IServerInformationService _serverInformationService;
-    private readonly IRconConnectService _conConnectService;
+    private readonly IRconConnectionService _conConnectService;
     private readonly IConnectingDialogService _connectingDialogService;
     private readonly ILanguageService _languageService;
     private readonly IServerPasswordService _serverPasswordService;
@@ -28,7 +28,7 @@ public partial class ServersPageViewModel : ObservableObject
     private ListCollectionView _serverCollectionView;
     private string _filterName = string.Empty;
     private ServerInformation? _selectServer = null;
-    public ServersPageViewModel(IServerInformationService informationService, IRconConnectService conConnectService, IConnectingDialogService connectingDialogService, ILanguageService languageService, IServerPasswordService serverPasswordService, ILogService logService, INavigationService navigationService)
+    public ServersPageViewModel(IServerInformationService informationService, IRconConnectionService conConnectService, IConnectingDialogService connectingDialogService, ILanguageService languageService, IServerPasswordService serverPasswordService, ILogService logService, INavigationService navigationService)
     {
         _serverInformationService = informationService;
         _serverCollectionView = new(informationService.GetServers());
