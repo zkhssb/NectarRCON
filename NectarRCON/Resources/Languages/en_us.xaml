@@ -3,12 +3,14 @@
                     xmlns:sys="clr-namespace:System;assembly=netstandard">
     <sys:String x:Key="file.language">en_us</sys:String>
     <sys:String x:Key="file.name">English US(en_us)</sys:String>
-    <sys:String x:Key="ui.menu.server_list">Servers...</sys:String>
+    <sys:String x:Key="ui.menu.server">Server</sys:String>
+    <sys:String x:Key="ui.menu.server_list">Servers</sys:String>
+    <sys:String x:Key="ui.menu.groups">Groups</sys:String>
     <sys:String x:Key="ui.menu.log">Log</sys:String>
     <sys:String x:Key="ui.menu.log.clear">Clear</sys:String>
     <sys:String x:Key="ui.menu.program">Program</sys:String>
     <sys:String x:Key="ui.menu.program.settings">Settings</sys:String>
-    <sys:String x:Key="ui.menu.program.about">About...</sys:String>
+    <sys:String x:Key="ui.menu.program.about">About</sys:String>
     <sys:String x:Key="ui.menu.program.check_update">CheckUpdate</sys:String>
     <sys:String x:Key="ui.window.title">RCONManager</sys:String>
     <sys:String x:Key="ui.settings.language">UI Language</sys:String>

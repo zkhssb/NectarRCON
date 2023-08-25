@@ -30,7 +30,7 @@ public partial class App
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ISnackbarService, SnackbarService>();
             services.AddSingleton<IServerInformationService, ServerInformationService>();
-            services.AddSingleton<IRconConnectionService, RconSingleConnectionService>();
+            services.AddSingleton<IRconConnection, RconSingleConnection>();
 
             services.AddSingleton<IConnectingDialogService, ConnectingDialogService>();
 

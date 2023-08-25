@@ -3,7 +3,9 @@
                     xmlns:sys="clr-namespace:System;assembly=netstandard">
     <sys:String x:Key="file.language">zh_cn</sys:String>
     <sys:String x:Key="file.name">简体中文(zh_cn)</sys:String>
+    <sys:String x:Key="ui.menu.server">服务器</sys:String>
     <sys:String x:Key="ui.menu.server_list">服务器列表</sys:String>
+    <sys:String x:Key="ui.menu.groups">服务器组</sys:String>
     <sys:String x:Key="ui.menu.log">日志</sys:String>
     <sys:String x:Key="ui.menu.log.clear">清空日志</sys:String>
     <sys:String x:Key="ui.menu.program">程序</sys:String>

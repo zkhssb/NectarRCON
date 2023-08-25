@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace NectarRCON.Services;
-public class RconSingleConnectionService : IRconConnectionService
+public class RconSingleConnection : IRconConnection
 {
     private readonly IServerPasswordService _serverPasswordService;
     private readonly ILanguageService _languageService;
 
-    public RconSingleConnectionService(IServerPasswordService serverPasswordService, ILanguageService languageService)
+    public RconSingleConnection(IServerPasswordService serverPasswordService, ILanguageService languageService)
     {
         _serverPasswordService = serverPasswordService;
         _languageService = languageService;
@@ -27,8 +27,8 @@ public class RconSingleConnectionService : IRconConnectionService
 
     public event MessageEvent? OnMessage;
     public event ClosedEvent? OnClosed;
-    public event EventEvent? OnConnected;
-    public event EventEvent? OnConnecting;
+    public event RconEvent? OnConnected;
+    public event RconEvent? OnConnecting;
 
     private ServerInformation _serverInformation = new();
     public void Close()

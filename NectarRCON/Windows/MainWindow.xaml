@@ -37,15 +37,31 @@
             Focusable="False">
             <MenuItem
                 Focusable="False"
+                Header="{DynamicResource ui.menu.server}">
+                <MenuItem
+                Focusable="False"
                 Header="{DynamicResource ui.menu.server_list}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger
                             EventName="Click">
-                        <i:InvokeCommandAction
+                            <i:InvokeCommandAction
                                 CommandParameter="2"
                                 Command="{Binding ViewModel.ChangePageCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>   
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
+                <MenuItem
+                Focusable="False"
+                Header="{DynamicResource ui.menu.groups}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger
+                            EventName="Click">
+                            <i:InvokeCommandAction
+                                CommandParameter="4"
+                                Command="{Binding ViewModel.ChangePageCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MenuItem>
             </MenuItem>
             <MenuItem
                 IsEnabled="{Binding ViewModel.MainPageIsLoaded}"

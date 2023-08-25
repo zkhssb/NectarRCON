@@ -3,14 +3,13 @@ using System.Threading.Tasks;
 
 namespace NectarRCON.Interfaces;
 public delegate void MessageEvent(ServerInformation information, string message);
-public delegate void EventEvent(ServerInformation information);
-public delegate void ClosedEvent(ServerInformation information);
-public interface IRconConnectionService
+public delegate void RconEvent(ServerInformation information);
+public interface IRconConnection
 {
     event MessageEvent OnMessage;
-    event ClosedEvent OnClosed;
-    event EventEvent OnConnected;
-    event EventEvent OnConnecting;
+    event RconEvent OnClosed;
+    event RconEvent OnConnected;
+    event RconEvent OnConnecting;
     Task ConnectAsync(ServerInformation info);
     Task Send(string command);
     void Close();
