@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CoreRCON;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
+using NectarRCON.Rcon;
 using NectarRCON.Windows;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -178,7 +179,7 @@ public partial class ServersPageViewModel : ObservableObject
             {
                 EditPass(information);
             }
-            await _conConnectService.ConnectAsync(information);
+            //await _conConnectService.ConnectAsync(information);
             _serverPasswordService.Select(information);
             if (_conConnectService.IsConnected())
                 _navigationService.Navigate(0);

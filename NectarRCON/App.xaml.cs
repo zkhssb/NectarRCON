@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NectarRCON.Helper;
 using NectarRCON.Interfaces;
+using NectarRCON.Rcon;
 using NectarRCON.Services;
 using NectarRCON.ViewModels;
 using NectarRCON.Views.Pages;
@@ -33,6 +35,7 @@ public partial class App
             services.AddSingleton<IRconConnection, RconSingleConnection>();
 
             services.AddSingleton<IConnectingDialogService, ConnectingDialogService>();
+            services.AddSingleton<IRconConfigurationService, RconConfigurationService>();
 
             services.AddScoped<INavigationWindow, MainWindow>();
             services.AddScoped<MainWindowViewModel>();
@@ -52,6 +55,10 @@ public partial class App
 
     private async void OnStartup(object sender, StartupEventArgs e)
     {
+        var adapter =AdapterHelpers.CreateAdapterInstance("NectarRCON.Adapter.Minecraft.MinecraftRconClient");
+        adapter?.Connect("127.0.0.1", 25575);
+        adapter?.Authenticate("123");
+        adapter?.Run("say hi");
         await _host.StartAsync();
     }
 

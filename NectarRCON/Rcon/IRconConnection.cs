@@ -1,7 +1,7 @@
 ﻿using NectarRCON.Models;
 using System.Threading.Tasks;
 
-namespace NectarRCON.Interfaces;
+namespace NectarRCON.Rcon;
 public delegate void MessageEvent(ServerInformation information, string message);
 public delegate void RconEvent(ServerInformation information);
 public interface IRconConnection
@@ -10,7 +10,7 @@ public interface IRconConnection
     event RconEvent OnClosed;
     event RconEvent OnConnected;
     event RconEvent OnConnecting;
-    Task ConnectAsync(ServerInformation info);
+    Task ConnectAsync();
     Task Send(string command);
     void Close();
     bool IsConnected();

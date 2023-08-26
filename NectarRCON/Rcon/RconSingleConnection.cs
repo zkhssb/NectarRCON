@@ -1,7 +1,9 @@
 ﻿using CoreRCON;
 using DnsClient;
+using NectarRCON.Export.Interfaces;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
+using NectarRCON.Rcon;
 using System;
 using System.Linq;
 using System.Net;
@@ -13,20 +15,22 @@ public class RconSingleConnection : IRconConnection
 {
     private readonly IServerPasswordService _serverPasswordService;
     private readonly ILanguageService _languageService;
+    private readonly IRconConfigurationService _rconConfigurationService;
 
-    public RconSingleConnection(IServerPasswordService serverPasswordService, ILanguageService languageService)
+    public RconSingleConnection(IServerPasswordService serverPasswordService, ILanguageService languageService, IRconConfigurationService rconConfigurationService)
     {
         _serverPasswordService = serverPasswordService;
         _languageService = languageService;
+        _rconConfigurationService = rconConfigurationService;
     }
 
-    private RCON? _rconClient
+    private IRconAdapter? _rconClient
         = null;
     private bool _connecting = false;
     private bool _connected = false;
 
     public event MessageEvent? OnMessage;
-    public event ClosedEvent? OnClosed;
+    public event RconEvent? OnClosed;
     public event RconEvent? OnConnected;
     public event RconEvent? OnConnecting;
 
@@ -45,8 +49,10 @@ public class RconSingleConnection : IRconConnection
             }
         }
     }
-    public async Task ConnectAsync(ServerInformation info)
+    public async Task ConnectAsync()
     {
+        /*
+        ServerInformation info = _rconConfigurationService.GetInformation().FirstOrDefault() ?? throw new ArgumentNullException("Internal error, please try again");
         _connecting = true;
         OnConnecting?.Invoke(info);
         try
@@ -115,6 +121,7 @@ public class RconSingleConnection : IRconConnection
             var record = result.Answers.ARecords().FirstOrDefault();
             return record?.Address.ToString() ?? host;
         }
+        */
     }
 
     public bool IsConnected()
@@ -127,8 +134,8 @@ public class RconSingleConnection : IRconConnection
         {
             try
             {
-                string result = await _rconClient.SendCommandAsync(command) ?? string.Empty;
-                OnMessage?.Invoke(_serverInformation, result);
+                //string result = await _rconClient.SendCommandAsync(command) ?? string.Empty;
+                //OnMessage?.Invoke(_serverInformation, result);
             }
             catch (Exception ex)
             {

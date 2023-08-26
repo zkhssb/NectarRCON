@@ -1,5 +1,5 @@
-﻿using NectarRCON.Interfaces;
-using NectarRCON.Models;
+﻿using NectarRCON.Models;
+using NectarRCON.Rcon;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace NectarRCON.Services
     internal class RconMultiConnection : IRconConnection, IDisposable
     {
         public event MessageEvent? OnMessage;
-        public event ClosedEvent? OnClosed;
+        public event RconEvent? OnClosed;
         public event RconEvent? OnConnected;
         public event RconEvent? OnConnecting;
 
@@ -23,7 +23,7 @@ namespace NectarRCON.Services
             throw new NotImplementedException();
         }
 
-        public Task ConnectAsync(ServerInformation info)
+        public Task ConnectAsync()
         {
             throw new NotImplementedException();
         }

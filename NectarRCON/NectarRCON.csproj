@@ -29,6 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NectarRCON.Adapter.Minecraft\NectarRCON.Adapter.Minecraft.csproj" />
+    <ProjectReference Include="..\NectarRCON.Export\NectarRCON.Export.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\head.png" />
     <Resource Include="Resources\Icon.png" />
   </ItemGroup>

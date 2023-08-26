@@ -1,8 +1,10 @@
 ﻿using NectarRCON.Export.Client;
 using NectarRCON.Export.Interfaces;
+using System.ComponentModel;
 
 namespace NectarRCON.Adapter.Minecraft
 {
+    [Description("rcon.minecraft")]
     public class MinecraftRconClient : BaseTcpClient, IRconAdapter
     {
         // https://wiki.vg/RCON #Fragmentation

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
+using NectarRCON.Rcon;
 using NectarRCON.Views.Pages;
 using System.Threading.Tasks;
 using System.Windows;
