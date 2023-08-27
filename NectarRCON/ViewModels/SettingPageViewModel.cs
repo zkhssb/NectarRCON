@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using NectarRCON.Helper;
+using NectarRCON.Core.Helper;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using System.Collections.Generic;

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CoreRCON;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using NectarRCON.Rcon;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
-using NectarRCON.Helper;
+using NectarRCON.Core.Helper;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using System;

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DnsClient" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NectarRCON.Adapter.Minecraft\NectarRCON.Adapter.Minecraft.csproj" />
+    <ProjectReference Include="..\NectarRCON.Export\NectarRCON.Export.csproj" />
+  </ItemGroup>
+
+</Project>

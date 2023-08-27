@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NectarRCON", "NectarRCON\Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NectarRCON.Tests", "NectarRCON.Tests\NectarRCON.Tests.csproj", "{3363EC0E-04D8-4A7C-9A8E-ABF42B6FE431}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NectarRCON.Export", "NectarRCON.Export\NectarRCON.Export.csproj", "{49A2E218-1DED-4DEF-BD97-CCDE90C55630}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NectarRCON.Export", "NectarRCON.Export\NectarRCON.Export.csproj", "{49A2E218-1DED-4DEF-BD97-CCDE90C55630}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NectarRCON.Adapter.Minecraft", "NectarRCON.Adapter.Minecraft\NectarRCON.Adapter.Minecraft.csproj", "{D4B97850-FF59-4AA1-A19F-2C22F80A8B20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NectarRCON.Adapter.Minecraft", "NectarRCON.Adapter.Minecraft\NectarRCON.Adapter.Minecraft.csproj", "{D4B97850-FF59-4AA1-A19F-2C22F80A8B20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NectarRCON.Core", "NectarRCON.Core\NectarRCON.Core.csproj", "{8C15668B-69F3-4138-BCE6-0BB6A65F3B2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D4B97850-FF59-4AA1-A19F-2C22F80A8B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4B97850-FF59-4AA1-A19F-2C22F80A8B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4B97850-FF59-4AA1-A19F-2C22F80A8B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C15668B-69F3-4138-BCE6-0BB6A65F3B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C15668B-69F3-4138-BCE6-0BB6A65F3B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C15668B-69F3-4138-BCE6-0BB6A65F3B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C15668B-69F3-4138-BCE6-0BB6A65F3B2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
