@@ -6,7 +6,7 @@ namespace NectarRCON.Core.Helper
 {
     public class DNSHelpers
     {
-        public static string? AQuery(string host)
+        public static string AQuery(string host)
         {
             var lookup = new LookupClient();
             var result = lookup.Query(host, QueryType.A);
@@ -18,7 +18,7 @@ namespace NectarRCON.Core.Helper
         /// MinecraftSRV解析
         /// </summary>
         /// <returns>成功返回ip:port</returns>
-        public static string? SRVQuery(string host)
+        public static string SRVQuery(string host)
         {
             // Minecraft特有的srv
             string srvAddress = $"_minecraft._tcp.{host}";
