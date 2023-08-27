@@ -76,7 +76,7 @@ public class RconSingleConnection : IRconConnection
             
             _rconClient.Connect(host, port); // 连接
 
-            if (!string.IsNullOrEmpty(password) && !_rconClient.Authenticate(password))
+            if (!_rconClient.Authenticate(password))
                 throw new AuthenticationException();
 
             OnConnected?.Invoke(info);
