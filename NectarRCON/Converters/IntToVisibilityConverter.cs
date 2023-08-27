@@ -11,6 +11,16 @@ namespace NectarRCON.Converters
         {
             if(value is int intValue)
             {
+                if(parameter is string boolStringValue)
+                {
+                    bool boolValue = System.Convert.ToBoolean(boolStringValue);
+                    // 如果参数为False
+                    // <= 0 ? Visible : Hidden
+                    // 否则反过来
+                    return boolValue 
+                        ? (intValue <= 0 ? Visibility.Hidden : Visibility.Visible) 
+                        : (intValue <= 0 ? Visibility.Visible : Visibility.Hidden);
+                }
                 return intValue <= 0 ? Visibility.Visible : Visibility.Hidden;
             }
             return null;
