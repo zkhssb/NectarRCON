@@ -1,6 +1,4 @@
 ﻿using DnsClient;
-using System.Linq;
-using System.Net;
 
 namespace NectarRCON.Core.Helper
 {

@@ -47,7 +47,7 @@ namespace NectarRCON.Adapter.Minecraft
             _semaphore.Wait();
             try
             {
-                Packet response =  Send(new Packet(PacketType.Command, command));
+                Packet response = Send(new Packet(PacketType.Command, command));
                 return response.Body;
             }
             finally

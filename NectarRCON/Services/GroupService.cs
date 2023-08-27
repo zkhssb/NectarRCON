@@ -35,10 +35,10 @@ namespace NectarRCON.Services
                 {
                     try
                     {
-                        using(FileStream fs = File.OpenRead(jsonFile))
+                        using (FileStream fs = File.OpenRead(jsonFile))
                         {
                             Group group = JsonSerializer.Deserialize<Group>(fs) ?? throw new InvalidDataException(jsonFile);
-                            if(group.Id.ToLower() != Path.GetFileNameWithoutExtension(jsonFile).ToLower())
+                            if (group.Id.ToLower() != Path.GetFileNameWithoutExtension(jsonFile).ToLower())
                                 throw new InvalidDataException(string.Format(_languageService.GetKey("groups.exception.file_name_mismatch_exception"), jsonFile, group.Id));
                             if (_groupMapping.ContainsKey(group.Id))
                                 throw new InvalidDataException(string.Format(_languageService.GetKey("groups.exception.same_group_id_exception"), _groupMapping[group.Id].Name, group.Name));
@@ -91,7 +91,7 @@ namespace NectarRCON.Services
         public void Delete(string groupId)
         {
             string filePath = Path.Combine(_groupPath, groupId + ".json");
-            if(File.Exists(filePath))
+            if (File.Exists(filePath))
             {
                 File.Delete(filePath);
                 RemoveGroupInDict(groupId);

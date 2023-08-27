@@ -4,7 +4,6 @@ using NectarRCON.Interfaces;
 using NectarRCON.Rcon;
 using NectarRCON.Services;
 using NectarRCON.ViewModels;
-using NectarRCON.Views.Pages;
 using NectarRCON.Windows;
 using System;
 using System.Linq;

@@ -1,6 +1,5 @@
 ﻿using NectarRCON.Interfaces;
 using NectarRCON.Models;
-using NectarRCON.Rcon;
 using System;
 using System.Collections.Generic;
 using System.Linq;

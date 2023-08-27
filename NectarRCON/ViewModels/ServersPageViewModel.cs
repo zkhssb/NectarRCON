@@ -54,7 +54,7 @@ public partial class ServersPageViewModel : ObservableObject
         addServer.ShowDialog();
         Refresh();
     }
-    
+
     [RelayCommand]
     public void FilterTextChanged(TextChangedEventArgs e)
     {

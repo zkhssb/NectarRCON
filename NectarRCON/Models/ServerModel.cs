@@ -1,14 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.VisualBasic;
 using NectarRCON.Interfaces;
 using NectarRCON.Rcon;
 using NectarRCON.Services;
 using NectarRCON.ViewModels;
 using NectarRCON.Windows;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Windows;
@@ -16,7 +12,7 @@ using Wpf.Ui.Mvvm.Contracts;
 
 namespace NectarRCON.Models
 {
-    public partial class ServerModel:ObservableObject
+    public partial class ServerModel : ObservableObject
     {
         private readonly IServerPasswordService _passwordService;
 

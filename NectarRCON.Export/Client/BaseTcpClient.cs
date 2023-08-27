@@ -1,8 +1,6 @@
 ﻿using NectarRCON.Export.Interfaces;
-using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 
 namespace NectarRCON.Export.Client;
 /// <summary>
@@ -26,7 +24,7 @@ public abstract class BaseTcpClient : IRconClient
     public byte[] Send(byte[] bytes)
     {
         using MemoryStream response = new();
-        if(IsConnected)
+        if (IsConnected)
         {
             _networkStream!.Write(bytes, 0, bytes.Length);
             return Read(_reader!);

@@ -1,5 +1,4 @@
 ﻿using NectarRCON.Models;
-using System.Threading.Tasks;
 
 namespace NectarRCON.Rcon;
 public delegate void MessageEvent(ServerInformation information, string message);

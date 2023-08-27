@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace NectarRCON.Adapter.Minecraft
 {
@@ -32,7 +29,7 @@ namespace NectarRCON.Adapter.Minecraft
 
         public static Packet Decode(byte[] bytes)
         {
-            if(bytes.Length < HeaderLength) { throw new ArgumentException("packet length too short"); }
+            if (bytes.Length < HeaderLength) { throw new ArgumentException("packet length too short"); }
             int len = BitConverter.ToInt32(bytes, 0);
             int id = BitConverter.ToInt32(bytes, 4);
             int type = BitConverter.ToInt32(bytes, 8);

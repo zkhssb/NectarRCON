@@ -2,7 +2,7 @@
 /// <summary>
 /// Rcon客户端接口
 /// </summary>
-public interface IRconClient:IDisposable
+public interface IRconClient : IDisposable
 {
     /// <summary>
     /// 启动连接
@@ -29,5 +29,5 @@ public interface IRconClient:IDisposable
     /// <summary>
     /// 是否已连接
     /// </summary>
-    bool IsConnected {  get; }
+    bool IsConnected { get; }
 }

@@ -1,8 +1,6 @@
-﻿using NectarRCON.Models;
-using NectarRCON.Rcon;
+﻿using NectarRCON.Rcon;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace NectarRCON.Services
 {

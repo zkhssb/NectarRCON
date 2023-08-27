@@ -1,6 +1,4 @@
-﻿using NectarRCON.ViewModels;
-
-namespace NectarRCON.Views.Pages
+﻿namespace NectarRCON.Views.Pages
 {
     /// <summary>
     /// ServersPage.xaml 的交互逻辑

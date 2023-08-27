@@ -1,6 +1,5 @@
 ﻿using NectarRCON.Adapter.Minecraft;
 using NectarRCON.Export.Interfaces;
-using System;
 
 namespace NectarRCON.Tests.Adapter
 {

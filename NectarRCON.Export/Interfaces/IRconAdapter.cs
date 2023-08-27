@@ -2,7 +2,7 @@
 /// <summary>
 /// Rcon协议兼容接口
 /// </summary>
-public interface IRconAdapter:IDisposable
+public interface IRconAdapter : IDisposable
 {
     /// <summary>
     /// 已经连接
@@ -14,7 +14,7 @@ public interface IRconAdapter:IDisposable
     /// </summary>
     bool Connect(string address, int port);
 
-    
+
     /// <summary>
     /// 验证
     /// </summary>

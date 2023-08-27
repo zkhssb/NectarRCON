@@ -1,11 +1,6 @@
 ﻿using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using NectarRCON.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace NectarRCON.Tests

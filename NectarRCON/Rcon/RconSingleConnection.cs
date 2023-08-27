@@ -4,10 +4,7 @@ using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using NectarRCON.Rcon;
 using System;
-using System.Linq;
-using System.Net;
 using System.Security.Authentication;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace NectarRCON.Services;
@@ -73,7 +70,7 @@ public class RconSingleConnection : IRconConnection
 
             string host = address.Split(":")[0];
             int port = int.Parse(address.Split(":")[1]);
-            
+
             _rconClient.Connect(host, port); // 连接
 
             if (!_rconClient.Authenticate(password))
