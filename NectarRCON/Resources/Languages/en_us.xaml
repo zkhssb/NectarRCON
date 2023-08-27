@@ -82,4 +82,12 @@
     <sys:String x:Key="text.config.json_error">Unable to resolve configuration file /config.json JSON parsing failed: %s\nClick "Yes" to reset the profile!\nClick "No" to exit the program!</sys:String>
     <sys:String x:Key="text.config.error">Unable to parse configuration file /config.json: %s\nClick "Yes" to reset the profile!\nClick "No" to exit the program!</sys:String>
     <sys:String x:Key="text.config.save_error">Unable to save configuration file /config.json: %s\nIf you have just changed the configuration file, please note that the save does not take effect!</sys:String>
+
+    <sys:String x:Key="groups.exception.invalid_data_exception">An error occurred while trying to read and parse the group file "{0}", trying to delete or repair the file may resolve this error!</sys:String>
+    <sys:String x:Key="groups.exception.same_group_id_exception">The same GroupId already exists (existing value: {0}, duplicate value: {1})</sys:String>
+    <sys:String x:Key="groups.exception.same_name_exception">The same Name already exists (existing id: {0}, duplicate id: {1})</sys:String>
+    <sys:String x:Key="groups.exception.group_id_exists_exception">A group with the same internal ID already exists in the file, try creating it again</sys:String>
+    <sys:String x:Key="groups.exception.file_name_mismatch_exception">The {0} file name does not match the internal ID {1}</sys:String>
+    <sys:String x:Key="groups.exception.name_already_exists_exception">The same Name already exists</sys:String>
+
 </ResourceDictionary>

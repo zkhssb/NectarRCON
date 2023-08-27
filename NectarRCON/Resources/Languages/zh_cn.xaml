@@ -82,4 +82,11 @@
     <sys:String x:Key="text.config.json_error">无法解析配置文件 /config.json JSON解析失败: %s\n点击"是"重置配置文件!\n点击"否"退出程序!</sys:String>
     <sys:String x:Key="text.config.error">无法解析配置文件 /config.json: %s\n点击"是"重置配置文件!\n点击"否"退出程序!</sys:String>
     <sys:String x:Key="text.config.save_error">无法保存配置文件 /config.json: %s\n如果您刚刚更改了配置文件,请注意,保存并未生效!</sys:String>
+
+    <sys:String x:Key="groups.exception.invalid_data_exception">读取和解析组文件"{0}"时发生错误，请尝试删除或修复文件以解决此错误！</sys:String>
+    <sys:String x:Key="groups.exception.same_group_id_exception">相同的 GroupId 已存在（现有值: {0}，重复值: {1}）</sys:String>
+    <sys:String x:Key="groups.exception.same_name_exception">相同的 Name 已存在（现有Id: {0}，重复Id: {1}）</sys:String>
+    <sys:String x:Key="groups.exception.group_id_exists_exception">文件中已存在具有相同内部 ID 的分组，请再次尝试创建</sys:String>
+    <sys:String x:Key="groups.exception.file_name_mismatch_exception">{0} 文件名与内部 ID {1} 不匹配</sys:String>
+    <sys:String x:Key="groups.exception.name_already_exists_exception">相同的组名已存在</sys:String>
 </ResourceDictionary>
