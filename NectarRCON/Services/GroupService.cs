@@ -83,6 +83,9 @@ namespace NectarRCON.Services
                 if (_groupMapping.ContainsKey(group.Id))
                     throw new InvalidOperationException(_languageService.GetKey("groups.exception.group_id_exists_exception"));
                 File.WriteAllBytes(filePath, Encoding.UTF8.GetBytes(JsonSerializer.Serialize(group)));
+
+                _groupMapping.Add(group.Id, group);
+                _groupNameMapping.Add(group.Name,group);
                 return group.Id;
             }
             throw new InvalidOperationException(_languageService.GetKey("groups.exception.group_id_exists_exception"));
