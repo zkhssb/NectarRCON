@@ -7,15 +7,9 @@ namespace NectarRCON.Views.Pages
     /// </summary>
     public partial class ServersPage
     {
-        public ServersPageViewModel ViewModel
-        {
-            get;
-        }
         public ServersPage()
         {
-            ViewModel = App.GetService<ServersPageViewModel>();
             InitializeComponent();
-            DataContext = this;
         }
     }
 }

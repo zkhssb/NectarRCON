@@ -6,6 +6,8 @@ using NectarRCON.Services;
 using NectarRCON.ViewModels;
 using NectarRCON.Views.Pages;
 using NectarRCON.Windows;
+using System;
+using System.Linq;
 using System.Windows;
 using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Mvvm.Services;
@@ -31,21 +33,17 @@ public partial class App
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ISnackbarService, SnackbarService>();
             services.AddSingleton<IServerInformationService, ServerInformationService>();
-            services.AddSingleton<IRconConnection, RconSingleConnection>();
 
             services.AddSingleton<IConnectingDialogService, ConnectingDialogService>();
 
             // Rcon Connections
             services.AddSingleton<IRconConnectionInfoService, RconConnectionInfoService>();
             services.AddSingleton<IRconConnection, RconSingleConnection>();
-            //services.AddSingleton<IRconConnection, RconMultiConnection>();
+            services.AddSingleton<IRconConnection, RconMultiConnection>();
 
 
             services.AddScoped<INavigationWindow, MainWindow>();
             services.AddScoped<MainWindowViewModel>();
-
-            services.AddScoped<ServersPage>();
-            services.AddScoped<ServersPageViewModel>();
 
             services.AddTransient<AddServerWindow>();
             services.AddTransient<AddServerWindowViewModel>();
@@ -55,6 +53,12 @@ public partial class App
         where T : class
     {
         return (_host.Services.GetService(typeof(T)) as T)!;
+    }
+
+    public static T GetService<T>(Type type)
+    where T : class
+    {
+        return (_host.Services.GetServices<T>().Where(t => t.GetType() == type).FirstOrDefault())!;
     }
 
     private async void OnStartup(object sender, StartupEventArgs e)

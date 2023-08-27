@@ -4,8 +4,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using NectarRCON.Rcon;
+using NectarRCON.Services;
 using NectarRCON.Views.Pages;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Wpf.Ui.Mvvm.Contracts;
@@ -20,6 +20,7 @@ public partial class MainPageViewModel : ObservableObject
     private readonly IRconConnection _rconConnectService;
     private readonly INavigationService _navigationService;
     private readonly ILanguageService _languageService;
+    private readonly IRconConnectionInfoService _rconConnectionInfoService;
 
     private MainPage? _page = null;
     private TextBox? _logTextBox = null;
@@ -32,10 +33,16 @@ public partial class MainPageViewModel : ObservableObject
     {
         _logService = App.GetService<ILogService>();
         _serverPasswordService = App.GetService<IServerPasswordService>();
-        _rconConnectService = App.GetService<IRconConnection>();
         _navigationService = App.GetService<INavigationService>();
         _languageService = App.GetService<ILanguageService>();
+        _rconConnectionInfoService = App.GetService<IRconConnectionInfoService>();
         WeakReferenceMessenger.Default.Register<ClearLogValueMessage>(this, OnClear);
+
+        // 选择连接服务
+        _rconConnectService = _rconConnectionInfoService.HasMultipleInformation ?
+            App.GetService<IRconConnection>(typeof(RconMultiConnection)) :
+            App.GetService<IRconConnection>(typeof(RconSingleConnection));
+
     }
     public void OnClear(object sender, ClearLogValueMessage msg)
     {
@@ -95,7 +102,7 @@ public partial class MainPageViewModel : ObservableObject
         _rconConnectService.OnClosed -= OnClosed;
     }
     [RelayCommand]
-    public async Task Run()
+    public void Run()
     {
         if (string.IsNullOrWhiteSpace(LogText))
             return;
@@ -114,13 +121,13 @@ public partial class MainPageViewModel : ObservableObject
         }
     }
     [RelayCommand]
-    public async Task KeyDown(KeyEventArgs e)
+    public void KeyDown(KeyEventArgs e)
     {
         var textBox = (System.Windows.Controls.TextBox)e.Source;
         _commandText = textBox.Text;
         if (e.Key == Key.Enter)
         {
-            await Run();
+            Run();
         }
     }
 }
