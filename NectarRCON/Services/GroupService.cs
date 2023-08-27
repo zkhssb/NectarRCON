@@ -30,7 +30,7 @@ namespace NectarRCON.Services
             _groupNameMapping.Clear();
             if (Directory.Exists(_groupPath))
             {
-                string[] jsonFiles = Directory.GetDirectories(_groupPath, "*.json");
+                string[] jsonFiles = Directory.GetFiles(_groupPath, "*.json");
                 foreach (string jsonFile in jsonFiles)
                 {
                     try
