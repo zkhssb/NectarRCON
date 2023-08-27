@@ -53,6 +53,7 @@
     
     <sys:String x:Key="ui.edit_server_window.title">编辑</sys:String>
 
+    <sys:String x:Key="text.went_wrong">运行过程中出现异常，应用即将结束。 如果您无法理解以下错误，请在 Github 上提交问题并详细描述发生的情况</sys:String>
     <sys:String x:Key="text.error">错误</sys:String>
     <sys:String x:Key="text.warn">警告</sys:String>
     <sys:String x:Key="text.info">信息</sys:String>

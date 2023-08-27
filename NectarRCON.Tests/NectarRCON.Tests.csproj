@@ -20,6 +20,7 @@
     <ProjectReference Include="..\NectarRCON.Adapter.Minecraft\NectarRCON.Adapter.Minecraft.csproj" />
     <ProjectReference Include="..\NectarRCON.Core\NectarRCON.Core.csproj" />
     <ProjectReference Include="..\NectarRCON.Export\NectarRCON.Export.csproj" />
+    <ProjectReference Include="..\NectarRCON\NectarRCON.csproj" />
   </ItemGroup>
 
 </Project>

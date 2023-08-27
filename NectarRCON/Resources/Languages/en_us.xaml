@@ -53,6 +53,7 @@
 
     <sys:String x:Key="ui.edit_server_window.title">Edit</sys:String>
 
+    <sys:String x:Key="text.went_wrong">An exception occurred during operation, and the application is about to end. If you cannot understand the error below, please submit an issue on Github and describe what happened in detail</sys:String>
     <sys:String x:Key="text.error">Error</sys:String>
     <sys:String x:Key="text.warn">Warning</sys:String>
     <sys:String x:Key="text.info">Information</sys:String>

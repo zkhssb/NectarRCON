@@ -41,6 +41,10 @@ public partial class App
             services.AddSingleton<IRconConnection, RconSingleConnection>();
             services.AddSingleton<IRconConnection, RconMultiConnection>();
 
+            services.AddSingleton<IMessageBoxService, MessageBoxService>();
+
+            services.AddSingleton<IGroupService, GroupService>();
+
 
             services.AddScoped<INavigationWindow, MainWindow>();
             services.AddScoped<MainWindowViewModel>();
