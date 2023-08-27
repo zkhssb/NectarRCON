@@ -104,7 +104,7 @@ public partial class MainPageViewModel : ObservableObject
         {
             LogText += _logService.Log($"> {CommandText}");
             _logTextBox?.ScrollToEnd();
-            await _rconConnectService.Send(CommandText);
+            _rconConnectService.Send(CommandText);
             CommandText = string.Empty;
         }
         else

@@ -5,6 +5,7 @@ using NectarRCON.Models;
 using NectarRCON.Rcon;
 using NectarRCON.Windows;
 using System.Net.Sockets;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,7 @@ public partial class ServersPageViewModel : ObservableObject
     private readonly IConnectingDialogService _connectingDialogService;
     private readonly ILanguageService _languageService;
     private readonly IServerPasswordService _serverPasswordService;
+    private readonly IRconConnectionInfoService _connectionInfoService;
     private readonly ILogService _logService;
     private readonly INavigationService _navigationService;
 
@@ -28,7 +30,7 @@ public partial class ServersPageViewModel : ObservableObject
     private ListCollectionView _serverCollectionView;
     private string _filterName = string.Empty;
     private ServerInformation? _selectServer = null;
-    public ServersPageViewModel(IServerInformationService informationService, IRconConnection conConnectService, IConnectingDialogService connectingDialogService, ILanguageService languageService, IServerPasswordService serverPasswordService, ILogService logService, INavigationService navigationService)
+    public ServersPageViewModel(IServerInformationService informationService, IRconConnection conConnectService, IConnectingDialogService connectingDialogService, ILanguageService languageService, IServerPasswordService serverPasswordService, ILogService logService, INavigationService navigationService, IRconConnectionInfoService connectionInfoService)
     {
         _serverInformationService = informationService;
         _serverCollectionView = new(informationService.GetServers());
@@ -46,6 +48,7 @@ public partial class ServersPageViewModel : ObservableObject
         _serverPasswordService = serverPasswordService;
         _logService = logService;
         _navigationService = navigationService;
+        _connectionInfoService = connectionInfoService;
     }
     [RelayCommand]
     public void AddServer()
@@ -102,21 +105,21 @@ public partial class ServersPageViewModel : ObservableObject
         return _serverInformationService.GetServer(name);
     }
     [RelayCommand]
-    public async void MenuConnect(RoutedEventArgs e)
+    public void MenuConnect(RoutedEventArgs e)
     {
         var serverInfo = GetServerInformation(e);
         if (null == serverInfo) return;
-        await Connect(serverInfo);
+        Connect(serverInfo);
     }
     [RelayCommand]
-    public async void CardClick(RoutedEventArgs e)
+    public void CardClick(RoutedEventArgs e)
     {
         CardAction card = (CardAction)e.Source;
         var nameText = (TextBlock)LogicalTreeHelper.FindLogicalNode(card, "Name");
         ServerInformation? server = _serverInformationService.GetServer(nameText.Text);
         if (null != server)
         {
-            await Connect(server);
+            Connect(server);
         }
     }
     private void EditPass(ServerInformation info)
@@ -158,7 +161,7 @@ public partial class ServersPageViewModel : ObservableObject
             _serverCollectionView.Refresh();
         }
     }
-    public async Task Connect(ServerInformation information)
+    public void Connect(ServerInformation information)
     {
         if (_conConnectService.IsConnecting())
             return;
@@ -178,7 +181,9 @@ public partial class ServersPageViewModel : ObservableObject
             {
                 EditPass(information);
             }
-            //await _conConnectService.ConnectAsync(information);
+            _connectionInfoService.Clear();
+            _connectionInfoService.AddInformation(information.Name);
+            _conConnectService.Connect();
             _serverPasswordService.Select(information);
             if (_conConnectService.IsConnected())
                 _navigationService.Navigate(0);

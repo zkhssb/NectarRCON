@@ -23,7 +23,7 @@ namespace NectarRCON.Services
             throw new NotImplementedException();
         }
 
-        public Task ConnectAsync()
+        public void Connect()
         {
             throw new NotImplementedException();
         }
@@ -38,7 +38,7 @@ namespace NectarRCON.Services
             throw new NotImplementedException();
         }
 
-        public Task Send(string command)
+        public void Send(string command)
         {
             throw new NotImplementedException();
         }

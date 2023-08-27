@@ -10,8 +10,8 @@ public interface IRconConnection
     event RconEvent OnClosed;
     event RconEvent OnConnected;
     event RconEvent OnConnecting;
-    Task ConnectAsync();
-    Task Send(string command);
+    void Connect();
+    void Send(string command);
     void Close();
     bool IsConnected();
     bool IsConnecting();
