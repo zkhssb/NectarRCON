@@ -7,6 +7,7 @@ using NectarRCON.ViewModels;
 using NectarRCON.Windows;
 using System.Net.Sockets;
 using System.Security.Authentication;
+using System.Threading.Tasks;
 using System.Windows;
 using Wpf.Ui.Mvvm.Contracts;
 
@@ -91,7 +92,7 @@ namespace NectarRCON.Models
         }
 
         [RelayCommand]
-        public void Connect()
+        public async void Connect()
         {
             if (_rconConnection.IsConnecting())
                 return;
@@ -113,7 +114,7 @@ namespace NectarRCON.Models
                 }
                 _connectionInfoService.Clear();
                 _connectionInfoService.AddInformation(Name);
-                _rconConnection.Connect();
+                await Task.Run(_rconConnection.Connect);
                 _serverPasswordService.Select(_information);
                 if (_rconConnection.IsConnected())
                     _navigationService.Navigate(0);
