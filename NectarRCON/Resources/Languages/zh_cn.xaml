@@ -42,6 +42,7 @@
 
     <sys:String x:Key="ui.about.afdian">爱发电</sys:String>
     <sys:String x:Key="ui.about.mcbbs">MCBBS</sys:String>
+    <sys:String x:Key="ui.about.github">Github</sys:String>
 
     <sys:String x:Key="ui.text.format_exception">解析目标地址时遇到错误: %s\n请检查服务器地址是否合法!</sys:String>
 

@@ -42,6 +42,7 @@
 
     <sys:String x:Key="ui.about.afdian">Afdian</sys:String>
     <sys:String x:Key="ui.about.mcbbs">MCBBS</sys:String>
+    <sys:String x:Key="ui.about.github">Github</sys:String>
 
     <sys:String x:Key="ui.text.format_exception">An error was encountered while parsing the destination address: %s\nPlease check whether the server address is legal!</sys:String>
 
