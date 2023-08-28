@@ -73,6 +73,7 @@
 
     <sys:String x:Key="text.server.connected">Connected to the server and authenticated successfully!</sys:String>
     <sys:String x:Key="text.server.closed">The connection is disconnected!</sys:String>
+    <sys:String x:Key="text.server.start">Starting connection</sys:String>
 
     <sys:String x:Key="text.server.not_connect.text">You cannot connect to the server, so you cannot use the remote command function, please try to go back to the server list and reconnect to this server!</sys:String>
 
@@ -105,4 +106,6 @@
 
     <sys:String x:Key="ui.join_group.title">Select Server</sys:String>
     <sys:String x:Key="ui.join_group.no_server">No server available</sys:String>
+
+    <sys:String x:Key="service.rcon.offline">Offline</sys:String>
 </ResourceDictionary>

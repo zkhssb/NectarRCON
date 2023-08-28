@@ -7,4 +7,6 @@ public interface ILogService
     string Log(string message);
     void Clear();
     void SetServer(ServerInformation server);
+
+    void SetGroup(string groupId);
 }

@@ -4,6 +4,8 @@ using System;
 using System.IO;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace NectarRCON.Services;
 public class LogService : ILogService
@@ -36,11 +38,20 @@ public class LogService : ILogService
     }
     public void SetServer(ServerInformation server)
     {
-        string serverNameEncode = UrlEncoder.Default.Encode(server.Name);
-        if (!File.Exists($"./logs/{serverNameEncode}.log"))
-            File.Create($"./logs/{serverNameEncode}.log").Close();
+        OpenFile("server_" + UrlEncoder.Default.Encode(server.Name));
+    }
+
+    public void SetGroup(string groupId)
+    {
+        OpenFile("group_" + UrlEncoder.Default.Encode(groupId));
+    }
+
+    private void OpenFile(string fileName)
+    {
+        if (!File.Exists($"./logs/{fileName}.log"))
+            File.Create($"./logs/{fileName}.log").Close();
         _logFileStream?.Close();
         _logFileStream?.Dispose();
-        _logFileStream = File.Open($"./logs/{serverNameEncode}.log", FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
+        _logFileStream = File.Open($"./logs/{fileName}.log", FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
     }
 }

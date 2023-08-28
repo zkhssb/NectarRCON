@@ -73,6 +73,7 @@
 
     <sys:String x:Key="text.server.connected">连接服务器并认证成功!</sys:String>
     <sys:String x:Key="text.server.closed">连接已断开!</sys:String>
+    <sys:String x:Key="text.server.start">开始连接</sys:String>
 
     <sys:String x:Key="text.server.not_connect.text">无法连接到服务器,因此无法使用远程命令功能,请尝试回到服务器列表重新连接到本服务器!</sys:String>
 
@@ -105,4 +106,6 @@
 
     <sys:String x:Key="ui.join_group.title">选择服务器</sys:String>
     <sys:String x:Key="ui.join_group.no_server">没有可用服务器</sys:String>
+
+    <sys:String x:Key="service.rcon.offline">离线</sys:String>
 </ResourceDictionary>

@@ -22,6 +22,7 @@ namespace NectarRCON.Models
         private readonly IRconConnectionInfoService _connectionInfoService;
         private readonly INavigationService _navigationService;
         private readonly IServerPasswordService _serverPasswordService;
+        private readonly ILogService _logService;
 
         private readonly ILanguageService _languageService;
         private readonly ServerInformation _information;
@@ -48,6 +49,7 @@ namespace NectarRCON.Models
             _connectionInfoService = App.GetService<IRconConnectionInfoService>();
             _navigationService = App.GetService<INavigationService>();
             _serverPasswordService = App.GetService<IServerPasswordService>();
+            _logService = App.GetService<ILogService>();
             _information = information;
             _viewModel = viewModel;
 
@@ -92,48 +94,29 @@ namespace NectarRCON.Models
         }
 
         [RelayCommand]
-        public async void Connect()
+        public void Connect()
         {
+            _logService.SetServer(_information);
             if (_rconConnection.IsConnecting())
                 return;
-            try
+
+            if (_rconConnection.IsConnected())
             {
-                _connectingDialogService.Show();
-                if (_rconConnection.IsConnected())
-                {
-                    _rconConnection.Close();
-                }
-                var server = _passwordService.Get(_information);
-                if (server == null)
-                {
-                    EditPass();
-                }
-                else if (server.Password == null && !server.IsEmpty)
-                {
-                    EditPass();
-                }
-                _connectionInfoService.Clear();
-                _connectionInfoService.AddInformation(Name);
-                await Task.Run(_rconConnection.Connect);
-                _serverPasswordService.Select(_information);
-                if (_rconConnection.IsConnected())
-                    _navigationService.Navigate(0);
+                _rconConnection.Close();
             }
-            catch (SocketException ex)
+            var server = _passwordService.Get(_information);
+            if (server == null)
             {
-                MessageBox.Show(_languageService.GetKey("text.server.connect.fail.text")
-                    .Replace("\\n", "\n")
-                    .Replace("%s", ex.Message), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                EditPass();
             }
-            catch (AuthenticationException)
+            else if (server.Password == null && !server.IsEmpty)
             {
-                MessageBox.Show(_languageService.GetKey("text.server.connect.auth_fail")
-                .Replace("\\n", "\n"), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                EditPass();
             }
-            finally
-            {
-                _connectingDialogService.Close();
-            }
+            _connectionInfoService.Clear();
+            _connectionInfoService.AddInformation(Name);
+            _serverPasswordService.Select(_information);
+            _navigationService.Navigate(0);
         }
     }
 }

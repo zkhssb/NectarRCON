@@ -6,6 +6,9 @@ using NectarRCON.Models;
 using NectarRCON.Rcon;
 using NectarRCON.Services;
 using NectarRCON.Views.Pages;
+using System.Net.Sockets;
+using System.Security.Authentication;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Wpf.Ui.Mvvm.Contracts;
@@ -17,10 +20,12 @@ public partial class MainPageViewModel : ObservableObject
 {
     private readonly ILogService _logService;
     private readonly IServerPasswordService _serverPasswordService;
-    private readonly IRconConnection _rconConnectService;
+    private IRconConnection _rconConnectService;
     private readonly INavigationService _navigationService;
     private readonly ILanguageService _languageService;
     private readonly IRconConnectionInfoService _rconConnectionInfoService;
+    private readonly IConnectingDialogService _connectingDialogService;
+    private readonly IMessageBoxService _messageBoxService;
 
     private MainPage? _page = null;
     private TextBox? _logTextBox = null;
@@ -36,6 +41,8 @@ public partial class MainPageViewModel : ObservableObject
         _navigationService = App.GetService<INavigationService>();
         _languageService = App.GetService<ILanguageService>();
         _rconConnectionInfoService = App.GetService<IRconConnectionInfoService>();
+        _messageBoxService = App.GetService<IMessageBoxService>();
+        _connectingDialogService = App.GetService<IConnectingDialogService>();
         WeakReferenceMessenger.Default.Register<ClearLogValueMessage>(this, OnClear);
 
         // 选择连接服务
@@ -54,41 +61,77 @@ public partial class MainPageViewModel : ObservableObject
         string logMsg = string.IsNullOrEmpty(msg)
             ? _languageService.GetKey("ui.main_page.successful")
             : msg;
-        LogText += _logService.Log(logMsg);
+        LogText += _logService.Log($"{info.Name}:" + logMsg);
         _logTextBox?.ScrollToEnd();
     }
     private void OnClosed(ServerInformation info)
     {
-        LogText += _logService.Log(_languageService.GetKey("text.server.closed"));
+        LogText += _logService.Log($"{info.Name}\t{_languageService.GetKey("text.server.closed")}");
     }
     [RelayCommand]
-    public void Load(RoutedEventArgs e)
+    public async void Load(RoutedEventArgs e)
     {
-        WeakReferenceMessenger.Default.Send(new MainPageLoadValueMessage()
+        try
         {
-            IsLoaded = true,
-        });
+            _connectingDialogService.Show();
+            // 选择连接服务
+            _rconConnectService = _rconConnectionInfoService.HasMultipleInformation ?
+                App.GetService<IRconConnection>(typeof(RconMultiConnection)) :
+                App.GetService<IRconConnection>(typeof(RconSingleConnection));
 
-        _page = e.Source as MainPage;
-        _logTextBox = (TextBox)LogicalTreeHelper.FindLogicalNode(_page, "LogText");
+            WeakReferenceMessenger.Default.Send(new MainPageLoadValueMessage()
+            {
+                IsLoaded = true,
+            });
 
-        LogText = string.Empty;
-        _logService.SetServer(_serverPasswordService.GetSelect());
-        LogText = _logService.GetText();
+            _page = e.Source as MainPage;
+            _logTextBox = (TextBox)LogicalTreeHelper.FindLogicalNode(_page, "LogText");
 
+            LogText = string.Empty;
+            LogText = _logService.GetText();
+            LogText += _logService.Log(_languageService.GetKey("text.server.start"));
+            _rconConnectService.OnConnected += OnConnected;
+            _rconConnectService.OnMessage += OnMessage;
+            _rconConnectService.OnClosed += OnClosed;
+            await Task.Run(_rconConnectService.Connect);
+        }
+        catch (SocketException ex)
+        {
+            _messageBoxService.Show(_languageService.GetKey("text.server.connect.fail.text")
+                .Replace("\\n", "\n")
+                .Replace("%s", ex.Message), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (AuthenticationException ex)
+        {
+            _messageBoxService.Show(ex.Message + _languageService.GetKey("text.server.connect.auth_fail")
+                .Replace("\\n", "\n"), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
+            if (_rconConnectionInfoService.HasMultipleInformation)
+            {
+                _navigationService.Navigate(typeof(GroupPage));
+            }
+            else
+            {
+                _navigationService.Navigate(typeof(ServersPage));
+            }
+        }
+        finally
+        {
+            _connectingDialogService.Close();
+        }
+
+        // 当只有一个服务器时IsConnected会返回单个客户端的连接状态
+        // 当有多个服务器时只要有一个客户端在线,IsConnected就会返回True
         if (!_rconConnectService.IsConnected())
         {
             _navigationService.Navigate(2);
         }
-        else
-        {
-            LogText += _logService.Log(_languageService.GetKey("text.server.connected"));
-            _logTextBox.ScrollToEnd();
-        }
-
-        _rconConnectService.OnMessage += OnMessage;
-        _rconConnectService.OnClosed += OnClosed;
     }
+
+    private void OnConnected(ServerInformation info)
+    {
+        LogText += _logService.Log($"$ {info.Name}\t{_languageService.GetKey("text.server.connected")}");
+    }
+
     [RelayCommand]
     public void Exit()
     {
@@ -104,9 +147,6 @@ public partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     public void Run()
     {
-        if (string.IsNullOrWhiteSpace(LogText))
-            return;
-
         if (_rconConnectService.IsConnected())
         {
             LogText += _logService.Log($"> {CommandText}");
