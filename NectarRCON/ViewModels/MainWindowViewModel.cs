@@ -51,6 +51,12 @@ namespace NectarRCON.ViewModels
                     Content = "群组",
                     PageTag = "groupPage",
                     PageType= typeof(Views.Pages.GroupPage)
+                },
+                new NavigationItem
+                {
+                    Content = "添加服务器",
+                    PageTag = "newGroup",
+                    PageType= typeof(Views.Pages.AddGroupPage)
                 }
             };
             _navigationService = navigationService;

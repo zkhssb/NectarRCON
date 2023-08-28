@@ -1,11 +1,12 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-                    xmlns:sys="clr-namespace:System;assembly=netstandard">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard">
     <sys:String x:Key="file.language">zh_cn</sys:String>
     <sys:String x:Key="file.name">简体中文(zh_cn)</sys:String>
     <sys:String x:Key="ui.menu.server">服务器</sys:String>
     <sys:String x:Key="ui.menu.server_list">服务器列表</sys:String>
-    <sys:String x:Key="ui.menu.groups">服务器组</sys:String>
+    <sys:String x:Key="ui.menu.groups">服务器分组</sys:String>
     <sys:String x:Key="ui.menu.log">日志</sys:String>
     <sys:String x:Key="ui.menu.log.clear">清空日志</sys:String>
     <sys:String x:Key="ui.menu.program">程序</sys:String>
@@ -29,7 +30,7 @@
     <sys:String x:Key="ui.server_page.add">添加服务器</sys:String>
     <sys:String x:Key="ui.server_page.search">输入服务器名字来搜索...</sys:String>
     <sys:String x:Key="ui.server_page.confirm">此操作将会删除服务器! (包括记录的密码)\n您确定要删除吗?</sys:String>
-    
+
     <sys:String x:Key="ui.add_server_window.title">添加服务器</sys:String>
     <sys:String x:Key="ui.add_server_window.name">服务器名称</sys:String>
     <sys:String x:Key="ui.add_server_window.address">服务器地址</sys:String>
@@ -43,14 +44,14 @@
     <sys:String x:Key="ui.about.mcbbs">MCBBS</sys:String>
 
     <sys:String x:Key="ui.text.format_exception">解析目标地址时遇到错误: %s\n请检查服务器地址是否合法!</sys:String>
-    
+
     <sys:String x:Key="ui.edit_password.title">编辑密码</sys:String>
     <sys:String x:Key="ui.edit_password.text">密码</sys:String>
     <sys:String x:Key="ui.edit_password.is_empty">无需密码</sys:String>
-    
+
     <sys:String x:Key="ui.main_page.run">执行</sys:String>
     <sys:String x:Key="ui.main_page.successful">执行成功</sys:String>
-    
+
     <sys:String x:Key="ui.edit_server_window.title">编辑</sys:String>
 
     <sys:String x:Key="text.went_wrong">运行过程中出现异常，应用即将结束。 如果您无法理解以下错误，请在 Github 上提交问题并详细描述发生的情况</sys:String>
@@ -60,6 +61,10 @@
     <sys:String x:Key="text.ok">确定</sys:String>
     <sys:String x:Key="text.cancel">取消</sys:String>
     <sys:String x:Key="text.not_available">不可使用</sys:String>
+    <sys:String x:Key="text.connect">连接</sys:String>
+    <sys:String x:Key="text.remove">移除</sys:String>
+    <sys:String x:Key="text.delete">删除</sys:String>
+    <sys:String x:Key="text.add">添加</sys:String>
 
     <sys:String x:Key="text.server.connect.ing">正在连接服务器...</sys:String>
     <sys:String x:Key="text.server.connect.fail">连接服务器失败!</sys:String>
@@ -89,4 +94,15 @@
     <sys:String x:Key="groups.exception.group_id_exists_exception">文件中已存在具有相同内部 ID 的分组，请再次尝试创建</sys:String>
     <sys:String x:Key="groups.exception.file_name_mismatch_exception">{0} 文件名与内部 ID {1} 不匹配</sys:String>
     <sys:String x:Key="groups.exception.name_already_exists_exception">相同的组名已存在</sys:String>
+
+    <sys:String x:Key="ui.group.no_group_title">单击'+ 添加'添加一个组吧!</sys:String>
+    <sys:String x:Key="ui.group.no_group_subtitle">添加组后,可以将命令同时广播到该组的所有服务器</sys:String>
+    <sys:String x:Key="ui.group.no_server">该组没有任何服务器,请单击 '+ 添加' 添加一个服务器吧!</sys:String>
+    <sys:String x:Key="ui.group.delete_group">是否要删除组 {0}?</sys:String>
+
+    <sys:String x:Key="ui.add_group.title">新建组</sys:String>
+    <sys:String x:Key="ui.add_group.placeholder_text">组名</sys:String>
+
+    <sys:String x:Key="ui.join_group.title">选择服务器</sys:String>
+    <sys:String x:Key="ui.join_group.no_server">没有可用服务器</sys:String>
 </ResourceDictionary>
