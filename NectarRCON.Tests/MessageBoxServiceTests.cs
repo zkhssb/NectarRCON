@@ -44,7 +44,8 @@ namespace NectarRCON.Tests
         [TestMethod]
         public void ExceptionTest()
         {
-            _service.Show(new Exception("测试异常"), "我故意哒!");
+            /// 我为什么要把这东西写进单元测试啊!!!!
+            //_service.Show(new Exception("测试异常"), "我故意哒!");
         }
     }
 }

@@ -9,6 +9,10 @@ namespace NectarRCON.Tests.Adapter
         private static readonly IRconAdapter _client = new MinecraftRconClient();
         private bool _isAuthenticated = false;
 
+        /// <summary>
+        /// 此单元测试请自行搭建服务器测试(没必要=3=)
+        /// </summary>
+
         private void connectAndAuthenticate()
         {
             if (!_client.IsConnected)
@@ -18,21 +22,21 @@ namespace NectarRCON.Tests.Adapter
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void Connect()
         {
             connectAndAuthenticate();
             Assert.IsTrue(_client.IsConnected);
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void Authenticate()
         {
             connectAndAuthenticate();
             Assert.IsTrue(_isAuthenticated);
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void Run()
         {
             connectAndAuthenticate();
