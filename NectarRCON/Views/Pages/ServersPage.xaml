@@ -1,123 +1,77 @@
-﻿<ui:UiPage x:Class="NectarRCON.Views.Pages.ServersPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-      xmlns:local="clr-namespace:NectarRCON.Views.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ServersPage">
-    <Grid
-        Margin="10">
+﻿<ui:UiPage
+    x:Class="NectarRCON.Views.Pages.ServersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:NectarRCON.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:vm="clr-namespace:NectarRCON.ViewModels"
+    Title="ServersPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <ui:UiPage.DataContext>
+        <vm:ServersPageViewModel />
+    </ui:UiPage.DataContext>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock 
+        <TextBlock
             Grid.Row="0"
             FontSize="16"
-            Text="{DynamicResource ui.server_page.text}"/>
-        <ScrollViewer
-            Margin="0,10,-10,10"
-            Grid.Row="1">
-            <ItemsControl
-            ItemsSource="{Binding ViewModel.ServerCollectionView, Mode=OneTime}">
+            Text="{DynamicResource ui.server_page.text}" />
+        <ScrollViewer Grid.Row="1" Margin="0,10,-10,10">
+            <ItemsControl ItemsSource="{Binding ServerCollectionView}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid 
-                        Margin="-5"
-                        VerticalAlignment="Top"
-                        Columns="1"/>
+                        <UniformGrid
+                            Margin="-5"
+                            VerticalAlignment="Top"
+                            Columns="1" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <ui:CardAction
-                            Tag="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ui:UiPage}, Path=DataContext}"
                             Margin="5"
+                            Command="{Binding ConnectCommand}"
                             Focusable="False">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger
-                                    EventName="MouseEnter">
-                                    <i:InvokeCommandAction
-                                        PassEventArgsToCommand="True"
-                                        Command="{Binding ViewModel.MouseEnterCardCommand, RelativeSource={RelativeSource AncestorType=ui:UiPage, Mode=FindAncestor}}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger
-                                    EventName="Click">
-                                    <i:InvokeCommandAction
-                                        PassEventArgsToCommand="True"
-                                        Command="{Binding ViewModel.CardClickCommand, RelativeSource={RelativeSource AncestorType=ui:UiPage, Mode=FindAncestor}}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
                             <ui:CardAction.ContextMenu>
-                                <ContextMenu
-                                    Tag="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.Content}"
-                                    DataContext = "{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.Tag}">
+                                <ContextMenu>
                                     <ui:MenuItem
-                                        SymbolIcon="Open24"
-                                        Header="{DynamicResource ui.server_page.menu.open}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger
-                                                EventName="Click">
-                                                <i:InvokeCommandAction
-                                                    PassEventArgsToCommand="True"
-                                                    Command="{Binding ViewModel.MenuConnectCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </ui:MenuItem>
+                                        Command="{Binding ConnectCommand}"
+                                        Header="{DynamicResource ui.server_page.menu.open}"
+                                        SymbolIcon="Open24" />
                                     <ui:MenuItem
-                                        SymbolIcon="Edit24"
-                                        Header="{DynamicResource ui.server_page.menu.edit}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger
-                                                EventName="Click">
-                                                <i:InvokeCommandAction
-                                                    PassEventArgsToCommand="True"
-                                                    Command="{Binding ViewModel.MenuEditCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </ui:MenuItem>
+                                        Command="{Binding EditCommand}"
+                                        Header="{DynamicResource ui.server_page.menu.edit}"
+                                        SymbolIcon="Edit24" />
                                     <ui:MenuItem
-                                        SymbolIcon="Password24"
-                                        Header="{DynamicResource ui.server_page.menu.edit_password}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger
-                                                EventName="Click">
-                                                <i:InvokeCommandAction
-                                                    PassEventArgsToCommand="True"
-                                                    Command="{Binding ViewModel.EditPasswordCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </ui:MenuItem>
-                                    <ui:MenuItem 
-                                        SymbolIcon="Delete24"
-                                        Header="{DynamicResource ui.server_page.menu.delete}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger
-                                                EventName="Click">
-                                                <i:InvokeCommandAction
-                                                    PassEventArgsToCommand="True"
-                                                    Command="{Binding ViewModel.MenuDeleteCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </ui:MenuItem>
+                                        Command="{Binding EditPasswordCommand}"
+                                        Header="{DynamicResource ui.server_page.menu.edit_password}"
+                                        SymbolIcon="Password24" />
+                                    <ui:MenuItem
+                                        Command="{Binding DeleteCommand}"
+                                        Header="{DynamicResource ui.server_page.menu.delete}"
+                                        SymbolIcon="Delete24" />
                                 </ContextMenu>
                             </ui:CardAction.ContextMenu>
                             <StackPanel>
-                                <TextBlock 
+                                <TextBlock
                                     Name="Name"
-                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                     FontSize="16"
-                                    Text="{Binding Name}"/>
-                                        <TextBlock 
-                                    Foreground="{DynamicResource TextFillColorTertiaryBrush	}"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                    Text="{Binding Name}" />
+                                <TextBlock
                                     Margin="0,10,0,0"
                                     FontSize="14"
-                                    Text="{Binding DisplayAddress}"/>
+                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                    Text="{Binding Address}" />
                             </StackPanel>
                         </ui:CardAction>
                     </DataTemplate>
@@ -125,31 +79,21 @@
             </ItemsControl>
         </ScrollViewer>
         <ui:TextBox
-            PlaceholderText="{DynamicResource ui.server_page.search}"
+            Grid.Row="2"
             Margin="0,0,130,0"
-            Grid.Row="2">
+            PlaceholderText="{DynamicResource ui.server_page.search}">
             <i:Interaction.Triggers>
-                <i:EventTrigger
-                    EventName="TextChanged">
-                    <i:InvokeCommandAction
-                        PassEventArgsToCommand="True"
-                        Command="{Binding ViewModel.FilterTextChangedCommand}"/>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding FilterTextChangedCommand}" PassEventArgsToCommand="True" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ui:TextBox>
-        <ui:Button 
+        <ui:Button
+            Grid.Row="2"
             Margin="0,0,4,0"
             HorizontalAlignment="Right"
-            Grid.Row="2"
-            Icon="Add24"
-            Content="{DynamicResource ui.server_page.add}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger
-                    EventName="Click">
-                    <i:InvokeCommandAction 
-                        Command="{Binding ViewModel.AddServerCommand, Mode=OneTime}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ui:Button>
+            Command="{Binding AddServerCommand}"
+            Content="{DynamicResource ui.server_page.add}"
+            Icon="Add24" />
     </Grid>
 </ui:UiPage>

@@ -1,0 +1,3 @@
+﻿# Adapter
+
+MinecraftRcon实现

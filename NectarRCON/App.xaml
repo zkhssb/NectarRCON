@@ -14,7 +14,7 @@
                 <ui:ControlsDictionary />
                 <ResourceDictionary Source="pack://application:,,,/NectarRCON;component/Resources/Languages/zh_cn.xaml" />
                 <ResourceDictionary>
-                    <sys:String x:Key="app.version">1.0.0-beta1</sys:String>
+                    <sys:String x:Key="app.version">1.0.0-beta3</sys:String>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

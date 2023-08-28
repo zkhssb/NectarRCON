@@ -1,0 +1,66 @@
+﻿<ui:UiWindow
+    x:Class="NectarRCON.Windows.JoinGroupWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:NectarRCON.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:NectarRCON.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:vm="clr-namespace:NectarRCON.ViewModels"
+    Title="{DynamicResource ui.join_group.title}"
+    Width="460"
+    Height="580"
+    ExtendsContentIntoTitleBar="True"
+    WindowBackdropType="Mica"
+    WindowCornerPreference="Round"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <ui:UiWindow.DataContext>
+        <vm:JoinGroupWindowViewModel />
+    </ui:UiWindow.DataContext>
+    <ui:UiWindow.Resources>
+        <c:IntToVisibilityConverter x:Key="IntToVisibilityConverter" />
+    </ui:UiWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ui:TitleBar
+            Title="{DynamicResource ui.join_group.title}"
+            FontSize="14"
+            Icon="pack://application:,,,/Resources/Icon.png"
+            ShowMaximize="False"
+            ShowMinimize="False" />
+
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="{Binding ServerCollectionView.Count, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter=False}">
+            <TextBlock Text="{DynamicResource ui.join_group.no_server}" />
+            <Button
+                x:Name="CloseButton"
+                Margin="0,15,0,0"
+                HorizontalAlignment="Stretch"
+                Click="CloseButton_Click"
+                Content="{DynamicResource text.cancel}" />
+        </StackPanel>
+        <ListView
+            x:Name="ServersListView"
+            Grid.Row="1"
+            ItemsSource="{Binding ServerCollectionView}"
+            SelectionChanged="ServersListView_SelectionChanged"
+            Visibility="{Binding ServerCollectionView.Count, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter=True}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ui:Card>
+                        <TextBlock Text="{Binding}" />
+                    </ui:Card>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ui:UiWindow>

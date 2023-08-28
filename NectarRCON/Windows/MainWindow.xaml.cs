@@ -14,19 +14,17 @@ namespace NectarRCON
     public partial class MainWindow : INavigationWindow, INavigableView<MainWindowViewModel>
     {
         private readonly INavigationService _navigationService;
-        private readonly IThemeService _themeService;
         public MainWindowViewModel ViewModel
         {
             get;
         }
 
         MainWindowViewModel INavigableView<MainWindowViewModel>.ViewModel => ViewModel;
-        public MainWindow(INavigationService navigationService, IThemeService themeService, MainWindowViewModel viewModel, IConnectingDialogService connectingDialogService)
+        public MainWindow(INavigationService navigationService, MainWindowViewModel viewModel, IConnectingDialogService connectingDialogService)
         {
             InitializeComponent();
             DataContext = this;
             _navigationService = navigationService;
-            _themeService = themeService;
             _navigationService.SetNavigationControl(RootNavigation);
             ViewModel = viewModel;
             connectingDialogService.SetDialog(ConnectingDialog);

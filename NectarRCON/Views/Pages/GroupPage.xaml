@@ -1,0 +1,148 @@
+﻿<ui:UiPage
+    x:Class="NectarRCON.Views.Pages.GroupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:NectarRCON.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:NectarRCON.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:vm="clr-namespace:NectarRCON.ViewModels"
+    Title="GroupPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <ui:UiPage.DataContext>
+        <vm:GroupPageViewModel />
+    </ui:UiPage.DataContext>
+    <ui:UiPage.Resources>
+        <c:IntToVisibilityConverter x:Key="IntToVisibilityConverter" />
+    </ui:UiPage.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            FontSize="16"
+            Text="{DynamicResource ui.menu.groups}" />
+        <StackPanel
+            Grid.Row="1"
+            Margin="0,-30,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="{Binding Groups.Count, Converter={StaticResource IntToVisibilityConverter}}">
+            <TextBlock
+                HorizontalAlignment="Center"
+                Focusable="{DynamicResource TextFullColorTertiaryBrush}"
+                FontSize="18"
+                Text="{DynamicResource ui.group.no_group_title}" />
+            <TextBlock
+                Margin="0,5,0,0"
+                HorizontalAlignment="Center"
+                Focusable="{DynamicResource TextFullColorTertiaryBrush}"
+                FontSize="14"
+                Text="{DynamicResource ui.group.no_group_subtitle}"
+                TextWrapping="Wrap" />
+            <ui:Button
+                Height="38"
+                Margin="0,15,0,0"
+                HorizontalAlignment="Stretch"
+                Command="{Binding NewGroupCommand}"
+                Content="{DynamicResource text.add}"
+                FontSize="16"
+                Icon="Add24" />
+        </StackPanel>
+        <ScrollViewer
+            Grid.Row="1"
+            Margin="0,10,-10,10"
+            VerticalAlignment="Top">
+            <ItemsControl Margin="0,-10,0,0" ItemsSource="{Binding Groups}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ui:CardExpander Margin="0,10,0,0">
+                            <ui:CardExpander.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="0,0,5,0"
+                                        Orientation="Horizontal">
+                                        <ui:Button
+                                            Margin="0,0,5,0"
+                                            Command="{Binding AddCommand}"
+                                            Content="{DynamicResource text.add}"
+                                            Icon="Add24" />
+                                        <ui:Button
+                                            Margin="0,0,5,0"
+                                            Command="{Binding BaseModel.RemoveGroupCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            Content="{DynamicResource text.delete}"
+                                            Icon="Delete24" />
+                                        <ui:Button
+                                            Margin="0,0,8,0"
+                                            Command="{Binding ConnectCommand}"
+                                            Content="{DynamicResource text.connect}"
+                                            Icon="Connector24" />
+                                    </StackPanel>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                        Text="{Binding Name}" />
+                                </Grid>
+                            </ui:CardExpander.Header>
+                            <Grid Margin="0,-5,0,0">
+                                <TextBlock
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Focusable="{DynamicResource TextFullColorTertiaryBrush}"
+                                    FontSize="12"
+                                    Text="{DynamicResource ui.group.no_server}"
+                                    Visibility="{Binding Servers.Count, Converter={StaticResource IntToVisibilityConverter}}" />
+                                <ItemsControl ItemsSource="{Binding Servers}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,5,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                <Button
+                                                    Grid.Column="1"
+                                                    Command="{Binding BaseModel.ItemRemoveCommand}"
+                                                    CommandParameter="{Binding Name}"
+                                                    Content="{DynamicResource text.remove}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </ui:CardExpander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <ui:Button
+            Grid.Row="0"
+            Margin="0,0,4,0"
+            HorizontalAlignment="Right"
+            Command="{Binding NewGroupCommand}"
+            Content="{DynamicResource text.add}"
+            Icon="Add24"
+            Visibility="{Binding Groups.Count, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter=True}" />
+    </Grid>
+</ui:UiPage>

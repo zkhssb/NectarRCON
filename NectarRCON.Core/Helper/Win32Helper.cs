@@ -1,4 +1,4 @@
-﻿namespace NectarRCON.Helper;
+﻿namespace NectarRCON.Core.Helper;
 public static class Win32Helper
 {
     public static bool GetWindowsTheme()
