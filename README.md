@@ -53,6 +53,15 @@ NectarRCON
 
 学习 WPF 时突发奇想做的一个工具，代码可能不太美观（各种乱七八糟，一锅乱炖的写法）
 
+<<<<<<< Updated upstream
+=======
+## 项目依赖
+
+| 名字                      | 地址                            |
+| ------------------------- | ------------------------------- |
+| WPF-UI (作者已废弃的版本) | https://github.com/lepoco/wpfui |
+
+>>>>>>> Stashed changes
 ## 部分截图
 
 <details>

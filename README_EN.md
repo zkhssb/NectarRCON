@@ -50,6 +50,15 @@ NectarRCON
 
 A tool I came up with while learning WPF. The code may not be aesthetically pleasing (a mishmash of various things, written in a haphazard manner)
 
+<<<<<<< Updated upstream
+=======
+## Project Dependencies
+
+| Name                        | Address                         |
+| --------------------------- | ------------------------------- |
+| WPF-UI (Deprecated Version) | https://github.com/lepoco/wpfui |
+
+>>>>>>> Stashed changes
 ## Screenshots
 
 <details>

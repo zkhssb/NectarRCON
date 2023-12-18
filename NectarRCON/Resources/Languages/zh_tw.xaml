@@ -1,0 +1,112 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <sys:String x:Key="file.language">zh_tw</sys:String>
+    <sys:String x:Key="file.name">繁体中文(zh_tw)</sys:String>
+    <sys:String x:Key="ui.menu.server">伺服器</sys:String>
+    <sys:String x:Key="ui.menu.server_list">伺服器列表</sys:String>
+    <sys:String x:Key="ui.menu.groups">伺服器分組</sys:String>
+    <sys:String x:Key="ui.menu.log">日誌</sys:String>
+    <sys:String x:Key="ui.menu.log.clear">清空日誌</sys:String>
+    <sys:String x:Key="ui.menu.program">程式</sys:String>
+    <sys:String x:Key="ui.menu.program.settings">設定</sys:String>
+    <sys:String x:Key="ui.menu.program.about">關於</sys:String>
+    <sys:String x:Key="ui.menu.program.check_update">檢查更新</sys:String>
+    <sys:String x:Key="ui.window.title">RCON管理器</sys:String>
+    <sys:String x:Key="ui.settings.language">UI語言</sys:String>
+    <sys:String x:Key="ui.settings.theme">UI主題</sys:String>
+    <sys:String x:Key="ui.settings.theme.dark">深色主題</sys:String>
+    <sys:String x:Key="ui.settings.theme.light">淺色主題</sys:String>
+    <sys:String x:Key="ui.settings.theme.auto">跟隨系統</sys:String>
+    <sys:String x:Key="ui.settings.rcon_account">Rcon密碼管理</sys:String>
+    <sys:String x:Key="ui.settings.command_record_limit">伺服器命令回溯記錄數</sys:String>
+
+    <sys:String x:Key="ui.server_page.menu.open">連線</sys:String>
+    <sys:String x:Key="ui.server_page.menu.edit">編輯</sys:String>
+    <sys:String x:Key="ui.server_page.menu.delete">刪除</sys:String>
+    <sys:String x:Key="ui.server_page.menu.edit_password">密碼</sys:String>
+    <sys:String x:Key="ui.server_page.text">伺服器列表</sys:String>
+    <sys:String x:Key="ui.server_page.add">新增伺服器</sys:String>
+    <sys:String x:Key="ui.server_page.search">輸入伺服器名稱來搜尋...</sys:String>
+    <sys:String x:Key="ui.server_page.confirm">此操作將會刪除伺服器! (包括記錄的密碼)\n您確定要刪除嗎?</sys:String>
+
+    <sys:String x:Key="ui.add_server_window.title">新增伺服器</sys:String>
+    <sys:String x:Key="ui.add_server_window.name">伺服器名稱</sys:String>
+    <sys:String x:Key="ui.add_server_window.address">伺服器地址</sys:String>
+    <sys:String x:Key="ui.add_server_window.port">伺服器端口</sys:String>
+    <sys:String x:Key="ui.add_server_window.add">新增</sys:String>
+    <sys:String x:Key="ui.add_server_window.cancel">取消</sys:String>
+    <sys:String x:Key="ui.add_server_window.already_exist">相同名稱的伺服器已經存在,請換一個名稱!</sys:String>
+    <sys:String x:Key="ui.add_server_window.null_text">伺服器名稱或伺服器地址不可為空,請更改!</sys:String>
+
+    <sys:String x:Key="ui.about.afdian">爱发电</sys:String>
+    <sys:String x:Key="ui.about.mcbbs">MCBBS</sys:String>
+    <sys:String x:Key="ui.about.github">Github</sys:String>
+
+    <sys:String x:Key="ui.text.format_exception">解析目标地址時遇到錯誤：%s\n請檢查伺服器地址是否合法！</sys:String>
+
+    <sys:String x:Key="ui.edit_password.title">編輯密碼</sys:String>
+    <sys:String x:Key="ui.edit_password.text">密碼</sys:String>
+    <sys:String x:Key="ui.edit_password.is_empty">無需密碼</sys:String>
+
+    <sys:String x:Key="ui.main_page.run">執行</sys:String>
+    <sys:String x:Key="ui.main_page.successful">執行成功</sys:String>
+
+    <sys:String x:Key="ui.edit_server_window.title">編輯</sys:String>
+
+    <sys:String x:Key="text.went_wrong">執行過程中出現異常，應用即將結束。如果您無法理解以下錯誤，請在 GitHub 上提交問題並詳細描述發生的情況。</sys:String>
+    <sys:String x:Key="text.error">錯誤</sys:String>
+    <sys:String x:Key="text.warn">警告</sys:String>
+    <sys:String x:Key="text.info">資訊</sys:String>
+    <sys:String x:Key="text.ok">確定</sys:String>
+    <sys:String x:Key="text.cancel">取消</sys:String>
+    <sys:String x:Key="text.not_available">不可使用</sys:String>
+    <sys:String x:Key="text.connect">連接</sys:String>
+    <sys:String x:Key="text.remove">移除</sys:String>
+    <sys:String x:Key="text.delete">刪除</sys:String>
+    <sys:String x:Key="text.add">新增</sys:String>
+
+    <sys:String x:Key="text.server.connect.ing">正在連接伺服器...</sys:String>
+    <sys:String x:Key="text.server.connect.fail">連接伺服器失敗！</sys:String>
+    <sys:String x:Key="text.server.connect.fail.text">無法連接到遠程伺服器：%s\n請檢查伺服器RCON地址配置是否正確，以及檢查服務端是否開啟了RCON選項！</sys:String>
+    <sys:String x:Key="text.server.connect.auth_fail">Rcon密碼錯誤，請檢查您的伺服器密碼是否正確！</sys:String>
+
+    <sys:String x:Key="text.server.connected">連接伺服器並認證成功！</sys:String>
+    <sys:String x:Key="text.server.closed">連接已斷開！</sys:String>
+    <sys:String x:Key="text.server.start">開始連接</sys:String>
+
+    <sys:String x:Key="text.server.not_connect.text">無法連接到伺服器，因此無法使用遠程命令功能，請嘗試回到伺服器列表重新連接到本伺服器！</sys:String>
+
+    <sys:String x:Key="text.server_information.error.json_error">無法解析伺服器列表 /servers.json %s\n點選"是"重置伺服器列表（需重新添加伺服器，但記錄的密碼不會消失）\n點選"取消"關閉程式！</sys:String>
+    <sys:String x:Key="text.server_information.error.text">無法解析伺服器列表 /servers.json %s\n點選"是"關閉程式！</sys:String>
+    <sys:String x:Key="text.server_information.error.save">無法儲存檔案 /servers.json\n如果您剛剛進行了添加伺服器操作，請注意，本次儲存並未生效！\n%s</sys:String>
+
+    <sys:String x:Key="text.password.error.json_error">無法解析密碼列表 /passwords.json %s\n點選"是"重置密碼列表（需重新設定密碼，但記錄的伺服器不會消失）\n點選"取消"關閉程式！</sys:String>
+    <sys:String x:Key="text.password.error.text">無法解析密碼列表 /passwords.json %s\n點選"是"關閉程式！</sys:String>
+    <sys:String x:Key="text.password.error.save">無法儲存檔案 /passwords.json\n如果您剛剛進行了設定密碼操作，請注意，本次儲存並未生效！\n%s</sys:String>
+
+    <sys:String x:Key="text.config.json_error">無法解析配置檔案 /config.json JSON解析失敗：%s\n點選"是"重置配置檔案！\n點選"否"退出程式！</sys:String>
+    <sys:String x:Key="text.config.error">無法解析配置檔案 /config.json：%s\n點選"是"重置配置檔案！\n點選"否"退出程式！</sys:String>
+    <sys:String x:Key="text.config.save_error">無法儲存配置檔案 /config.json：%s\n如果您剛剛更改了配置檔案，請注意，儲存並未生效！</sys:String>
+
+    <sys:String x:Key="groups.exception.invalid_data_exception">讀取和解析組檔案"{0}"時發生錯誤，請嘗試刪除或修復檔案以解決此錯誤！</sys:String>
+    <sys:String x:Key="groups.exception.same_group_id_exception">相同的 GroupId 已存在（現有值: {0}，重複值: {1}）</sys:String>
+    <sys:String x:Key="groups.exception.same_name_exception">相同的 Name 已存在（現有Id: {0}，重複Id: {1}）</sys:String>
+    <sys:String x:Key="groups.exception.group_id_exists_exception">檔案中已存在具有相同內部 ID 的分組，請再次嘗試建立</sys:String>
+    <sys:String x:Key="groups.exception.file_name_mismatch_exception">{0} 檔案名與內部 ID {1} 不匹配</sys:String>
+    <sys:String x:Key="groups.exception.name_already_exists_exception">相同的組名已存在</sys:String>
+
+    <sys:String x:Key="ui.group.no_group_title">點擊「+添加」添加一個分組吧！</sys:String>
+    <sys:String x:Key="ui.group.no_group_subtitle">添加分組後，您可以將命令廣播到該分組的所有伺服器</sys:String>
+    <sys:String x:Key="ui.group.no_server">該分組沒有任何伺服器，請點擊「+添加」添加一個伺服器吧！</sys:String>
+    <sys:String x:Key="ui.group.delete_group">是否要刪除分組 {0}？</sys:String>
+
+    <sys:String x:Key="ui.add_group.title">新建分組</sys:String>
+    <sys:String x:Key="ui.add_group.placeholder_text">分組名稱</sys:String>
+
+    <sys:String x:Key="ui.join_group.title">選擇伺服器</sys:String>
+    <sys:String x:Key="ui.join_group.no_server">沒有可用的伺服器</sys:String>
+
+    <sys:String x:Key="service.rcon.offline">離線</sys:String>
+</ResourceDictionary>

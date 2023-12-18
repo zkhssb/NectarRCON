@@ -57,6 +57,7 @@ public class LanguageService : ILanguageService
         }
         // 从内部文件加载
         _defaultLanguages.Add("zh_cn", "pack://application:,,,/NectarRCON;component/Resources/Languages/zh_cn.xaml");
+        _defaultLanguages.Add("zh_tw", "pack://application:,,,/NectarRCON;component/Resources/Languages/zh_tw.xaml");
         _defaultLanguages.Add("en_us", "pack://application:,,,/NectarRCON;component/Resources/Languages/en_us.xaml");
         foreach (KeyValuePair<string, string> language in _defaultLanguages)
         {
