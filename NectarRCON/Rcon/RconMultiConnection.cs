@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Windows.Controls;
+using NectarRCON.Dp;
 
 namespace NectarRCON.Services
 {
@@ -18,6 +19,7 @@ namespace NectarRCON.Services
     /// </summary>
     internal class RconMultiConnection : IRconConnection, IDisposable
     {
+        private readonly RconSettingsDp _settingsDp = DpFile.LoadSingleton<RconSettingsDp>();
         public event MessageEvent? OnMessage;
         public event RconEvent? OnClosed;
         public event RconEvent? OnConnected;
@@ -90,6 +92,8 @@ namespace NectarRCON.Services
                         _messageBoxService.Show(ex, $"Server: \"{info.Name}\"");
                     }
 
+                    //设置编码
+                    adapter.SetEncoding(_settingsDp.Encoding.GetEncoding());
                     _connections.Add(info, adapter);
                 }
             }

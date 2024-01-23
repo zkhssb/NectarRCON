@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NectarRCON.Core.Helper;
 using NectarRCON.Interfaces;
@@ -32,7 +33,14 @@ public partial class SettingPageViewModel : ObservableObject
     private bool _isKeepConnectionWindowOpen;
 
     [ObservableProperty]
-    private ObservableCollection<string> _languages = new();
+    private ObservableCollection<string> _rconEncoding = [];
+    
+    [ObservableProperty]
+    private string _selectedRconEncoding;
+
+    [ObservableProperty]
+    private ObservableCollection<string> _languages = [];
+    
     public SettingPageViewModel()
     {
         _languageService = App.GetService<ILanguageService>();
@@ -41,6 +49,14 @@ public partial class SettingPageViewModel : ObservableObject
 
         RconAutoReconnect = _rconSettingsDp.AutoReconnect;
         IsKeepConnectionWindowOpen = _rconSettingsDp.IsKeepConnectionWindowOpen;
+        
+        RconEncoding.Clear();
+        foreach (var encoding in Enum.GetNames(typeof(RconEncoding)))
+        {
+            RconEncoding.Add(encoding);
+        }
+        
+        SelectedRconEncoding = _rconSettingsDp.Encoding.ToString();
     }
 
     partial void OnRconAutoReconnectChanged(bool value)
@@ -52,6 +68,12 @@ public partial class SettingPageViewModel : ObservableObject
     partial void OnIsKeepConnectionWindowOpenChanged(bool value)
     {
         _rconSettingsDp.IsKeepConnectionWindowOpen = value;
+        _rconSettingsDp.Save();
+    }
+
+    partial void OnSelectedRconEncodingChanged(string value)
+    {
+        _rconSettingsDp.Encoding = Enum.GetValues<RconEncoding>().FirstOrDefault(e => e.ToString() == value);
         _rconSettingsDp.Save();
     }
 

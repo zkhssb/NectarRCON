@@ -71,7 +71,7 @@ public class RconSingleConnection : IRconConnection
             // 目前支支持了Minecraft,后期会支持更多(嘛..主要是懒)
             _rconClient = AdapterHelpers.CreateAdapterInstance(info.Adapter)
                 ?? throw new InvalidOperationException($"adapter not found: {info.Adapter}");
-
+            _rconClient.SetEncoding(_settingsDp.Encoding.GetEncoding());
             string host = address.Split(":")[0];
             int port = int.Parse(address.Split(":")[1]);
 

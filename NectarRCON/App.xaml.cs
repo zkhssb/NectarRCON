@@ -7,7 +7,9 @@ using NectarRCON.ViewModels;
 using NectarRCON.Windows;
 using System;
 using System.Linq;
+using System.Text;
 using System.Windows;
+using NectarRCON.Dp;
 using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Mvvm.Services;
 
@@ -66,6 +68,13 @@ public partial class App
 
     private async void OnStartup(object sender, StartupEventArgs e)
     {
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        foreach (var rconEncoding in Enum.GetValues<Dp.RconEncoding>())
+        {
+            rconEncoding.GetEncoding();
+        }
+        
         await _host.StartAsync();
     }
 

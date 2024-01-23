@@ -27,10 +27,10 @@ public class Packet
         Id = id;
     }
 
-    public byte[] Encode()
+    public byte[] Encode(Encoding? encoding = null)
     {
         List<byte> bytes = new List<byte>();
-        var data = Encoding.UTF8.GetBytes(Body);
+        var data = (encoding?? Encoding.UTF8).GetBytes(Body);
         bytes.AddRange(BitConverter.GetBytes(PacketEncoder.HeaderLength + data.Length));
         bytes.AddRange(BitConverter.GetBytes(Id));
         bytes.AddRange(BitConverter.GetBytes((int)Type));
