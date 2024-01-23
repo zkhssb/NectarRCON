@@ -15,12 +15,15 @@
     <sys:String x:Key="ui.menu.program.check_update">檢查更新</sys:String>
     <sys:String x:Key="ui.window.title">RCON管理器</sys:String>
     <sys:String x:Key="ui.settings.language">UI語言</sys:String>
+    <sys:String x:Key="ui.settings.ui">界面設定</sys:String>
     <sys:String x:Key="ui.settings.theme">UI主題</sys:String>
     <sys:String x:Key="ui.settings.theme.dark">深色主題</sys:String>
     <sys:String x:Key="ui.settings.theme.light">淺色主題</sys:String>
     <sys:String x:Key="ui.settings.theme.auto">跟隨系統</sys:String>
     <sys:String x:Key="ui.settings.rcon_account">Rcon密碼管理</sys:String>
     <sys:String x:Key="ui.settings.command_record_limit">伺服器命令回溯記錄數</sys:String>
+    <sys:String x:Key="ui.settings.rcon">Rcon全局設定</sys:String>
+    <sys:String x:Key="ui.settings.rcon.auto_reconnect">斷綫自動重連</sys:String>
 
     <sys:String x:Key="ui.server_page.menu.open">連線</sys:String>
     <sys:String x:Key="ui.server_page.menu.edit">編輯</sys:String>

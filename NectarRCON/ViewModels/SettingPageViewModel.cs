@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using NectarRCON.Dp;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace NectarRCON.ViewModels;
@@ -17,11 +18,15 @@ public partial class SettingPageViewModel : ObservableObject
     private readonly ILanguageService _languageService;
     private readonly IConfigService _configService;
     private readonly IThemeService _themeService;
+    private readonly RconSettingsDp _rconSettingsDp = DpFile.LoadSingleton<RconSettingsDp>();
 
     [ObservableProperty]
     private int _languageSelectedIndex = -1;
     [ObservableProperty]
     private int _themeSelectedIndex = -1;
+    
+    [ObservableProperty]
+    private bool _rconAutoReconnect;
 
     [ObservableProperty]
     private ObservableCollection<string> _languages = new();
@@ -30,7 +35,16 @@ public partial class SettingPageViewModel : ObservableObject
         _languageService = App.GetService<ILanguageService>();
         _configService = App.GetService<IConfigService>();
         _themeService = App.GetService<IThemeService>();
+
+        RconAutoReconnect = _rconSettingsDp.AutoReconnect;
     }
+
+    partial void OnRconAutoReconnectChanged(bool value)
+    {
+        _rconSettingsDp.AutoReconnect = value;
+        _rconSettingsDp.Save();
+    }
+
     [RelayCommand]
     public void PageLoad(RoutedEventArgs e)
     {

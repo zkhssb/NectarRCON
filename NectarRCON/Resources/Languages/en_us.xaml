@@ -15,12 +15,15 @@
     <sys:String x:Key="ui.menu.program.check_update">CheckUpdate</sys:String>
     <sys:String x:Key="ui.window.title">RCONManager</sys:String>
     <sys:String x:Key="ui.settings.language">UI Language</sys:String>
+    <sys:String x:Key="ui.settings.ui">UI Settings</sys:String>
     <sys:String x:Key="ui.settings.theme">UI Theme</sys:String>
     <sys:String x:Key="ui.settings.theme.dark">Dark Theme</sys:String>
     <sys:String x:Key="ui.settings.theme.light">Light Theme</sys:String>
     <sys:String x:Key="ui.settings.theme.auto">System Theme</sys:String>
     <sys:String x:Key="ui.settings.rcon_account">Rcon passwords...</sys:String>
     <sys:String x:Key="ui.settings.command_record_limit">Command Record Limit</sys:String>
+    <sys:String x:Key="ui.settings.rcon">Rcon</sys:String>
+    <sys:String x:Key="ui.settings.rcon.auto_reconnect">Auto Reconnect</sys:String>
 
     <sys:String x:Key="ui.server_page.menu.open">Connect</sys:String>
     <sys:String x:Key="ui.server_page.menu.edit">Edit</sys:String>

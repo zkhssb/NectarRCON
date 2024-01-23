@@ -8,6 +8,7 @@
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Version>1.0.0-beta3</Version>
+    <LangVersion>12</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
