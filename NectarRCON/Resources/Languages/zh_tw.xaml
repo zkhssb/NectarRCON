@@ -56,7 +56,12 @@
 
     <sys:String x:Key="ui.main_page.run">執行</sys:String>
     <sys:String x:Key="ui.main_page.successful">執行成功</sys:String>
-
+    
+    <sys:String x:Key="ui.main_page.offline.single">斷線</sys:String>
+    <sys:String x:Key="ui.main_page.offline.multiple">所有客戶端都斷線了</sys:String>
+    <sys:String x:Key="ui.main_page.re_connect">重新連接</sys:String>
+    <sys:String x:Key="ui.main_page.back_home">返回伺服器</sys:String>
+    
     <sys:String x:Key="ui.edit_server_window.title">編輯</sys:String>
 
     <sys:String x:Key="text.went_wrong">執行過程中出現異常，應用即將結束。如果您無法理解以下錯誤，請在 GitHub 上提交問題並詳細描述發生的情況。</sys:String>

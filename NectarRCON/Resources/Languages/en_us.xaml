@@ -56,6 +56,11 @@
 
     <sys:String x:Key="ui.main_page.run">Run</sys:String>
     <sys:String x:Key="ui.main_page.successful">Successful!</sys:String>
+    
+    <sys:String x:Key="ui.main_page.offline.single">Offline</sys:String>
+    <sys:String x:Key="ui.main_page.offline.multiple">All clients are offline</sys:String>
+    <sys:String x:Key="ui.main_page.re_connect">Reconnect</sys:String>
+    <sys:String x:Key="ui.main_page.back_home">Back to Servers</sys:String>
 
     <sys:String x:Key="ui.edit_server_window.title">Edit</sys:String>
 
