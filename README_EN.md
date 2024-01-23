@@ -30,11 +30,9 @@ NectarRCON
 ## Capabilities
 
 - Connect to a single server
-
 - Group servers (broadcast commands to all servers in the group)
-
 - Multi-language support (currently supports Chinese and English, with support for customizing other languages)
-
+- Support for SRV server addresses
 - Two built-in themes
 
 ## Future Plans
@@ -42,6 +40,7 @@ NectarRCON
   Yes!!! Our project is thriving (Haha)
 
 - Support for other Rcon protocols (top priority)
+- Reconstruction of the log section
 - Automatic update support (ideas in mind)
 - Automatic script execution (ideas in mind but no current demand)
 - Rcon-based plugins (demand exists but I'm lazy)
