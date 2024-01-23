@@ -24,6 +24,7 @@
     <sys:String x:Key="ui.settings.command_record_limit">服务器命令回溯记录数</sys:String>
     <sys:String x:Key="ui.settings.rcon">Rcon全局设置</sys:String>
     <sys:String x:Key="ui.settings.rcon.auto_reconnect">掉线自动重连</sys:String>
+    <sys:String x:Key="ui.settings.rcon.is_keep_connection_window_open">掉线不回到主页</sys:String>
     
     <sys:String x:Key="ui.server_page.menu.open">连接</sys:String>
     <sys:String x:Key="ui.server_page.menu.edit">编辑</sys:String>

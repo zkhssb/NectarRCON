@@ -27,6 +27,9 @@ public partial class SettingPageViewModel : ObservableObject
     
     [ObservableProperty]
     private bool _rconAutoReconnect;
+    
+    [ObservableProperty]
+    private bool _isKeepConnectionWindowOpen;
 
     [ObservableProperty]
     private ObservableCollection<string> _languages = new();
@@ -37,11 +40,18 @@ public partial class SettingPageViewModel : ObservableObject
         _themeService = App.GetService<IThemeService>();
 
         RconAutoReconnect = _rconSettingsDp.AutoReconnect;
+        IsKeepConnectionWindowOpen = _rconSettingsDp.IsKeepConnectionWindowOpen;
     }
 
     partial void OnRconAutoReconnectChanged(bool value)
     {
         _rconSettingsDp.AutoReconnect = value;
+        _rconSettingsDp.Save();
+    }
+
+    partial void OnIsKeepConnectionWindowOpenChanged(bool value)
+    {
+        _rconSettingsDp.IsKeepConnectionWindowOpen = value;
         _rconSettingsDp.Save();
     }
 

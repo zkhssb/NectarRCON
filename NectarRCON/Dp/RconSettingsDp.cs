@@ -11,4 +11,11 @@ public class RconSettingsDp:DpFile
     /// </summary>
     [JsonPropertyName("auto_reconnect")]
     public bool AutoReconnect { get; set; } = true;
+    
+    /// <summary>
+    /// 掉线后不关闭连接窗口
+    /// </summary>
+    /// <returns></returns>
+    [JsonPropertyName("is_keep_connection_window_open")]
+    public bool IsKeepConnectionWindowOpen { get; set; } = false;
 }

@@ -24,6 +24,7 @@
     <sys:String x:Key="ui.settings.command_record_limit">Command Record Limit</sys:String>
     <sys:String x:Key="ui.settings.rcon">Rcon</sys:String>
     <sys:String x:Key="ui.settings.rcon.auto_reconnect">Auto Reconnect</sys:String>
+    <sys:String x:Key="ui.settings.rcon.is_keep_connection_window_open">KeepConnectionWindowOpen</sys:String>
 
     <sys:String x:Key="ui.server_page.menu.open">Connect</sys:String>
     <sys:String x:Key="ui.server_page.menu.edit">Edit</sys:String>
