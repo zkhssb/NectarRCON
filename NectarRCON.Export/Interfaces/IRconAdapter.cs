@@ -1,4 +1,6 @@
-﻿namespace NectarRCON.Export.Interfaces;
+﻿using System.Text;
+
+namespace NectarRCON.Export.Interfaces;
 /// <summary>
 /// Rcon协议兼容接口
 /// </summary>
@@ -30,4 +32,7 @@ public interface IRconAdapter : IDisposable
     /// </summary>
 
     string Run(string command);
+    
+    Encoding GetEncoding();
+    void SetEncoding(Encoding encoding);
 }

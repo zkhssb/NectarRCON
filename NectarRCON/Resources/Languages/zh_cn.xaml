@@ -15,13 +15,18 @@
     <sys:String x:Key="ui.menu.program.check_update">检查更新</sys:String>
     <sys:String x:Key="ui.window.title">RCON管理器</sys:String>
     <sys:String x:Key="ui.settings.language">UI语言</sys:String>
+    <sys:String x:Key="ui.settings.ui">界面设置</sys:String>
     <sys:String x:Key="ui.settings.theme">UI主题</sys:String>
     <sys:String x:Key="ui.settings.theme.dark">深色主题</sys:String>
     <sys:String x:Key="ui.settings.theme.light">浅色主题</sys:String>
     <sys:String x:Key="ui.settings.theme.auto">跟随系统</sys:String>
     <sys:String x:Key="ui.settings.rcon_account">Rcon密码管理</sys:String>
     <sys:String x:Key="ui.settings.command_record_limit">服务器命令回溯记录数</sys:String>
-
+    <sys:String x:Key="ui.settings.rcon">Rcon全局设置</sys:String>
+    <sys:String x:Key="ui.settings.rcon.auto_reconnect">掉线自动重连</sys:String>
+    <sys:String x:Key="ui.settings.rcon.is_keep_connection_window_open">掉线不回到主页</sys:String>
+    <sys:String x:Key="ui.settings.rcon.encoding">文本编码</sys:String>
+    
     <sys:String x:Key="ui.server_page.menu.open">连接</sys:String>
     <sys:String x:Key="ui.server_page.menu.edit">编辑</sys:String>
     <sys:String x:Key="ui.server_page.menu.delete">删除</sys:String>
@@ -52,7 +57,12 @@
 
     <sys:String x:Key="ui.main_page.run">执行</sys:String>
     <sys:String x:Key="ui.main_page.successful">执行成功</sys:String>
-
+    
+    <sys:String x:Key="ui.main_page.offline.single">已掉线</sys:String>
+    <sys:String x:Key="ui.main_page.offline.multiple">所有客户端都掉线了</sys:String>
+    <sys:String x:Key="ui.main_page.re_connect">重新连接</sys:String>
+    <sys:String x:Key="ui.main_page.back_home">回到主页</sys:String>
+    
     <sys:String x:Key="ui.edit_server_window.title">编辑</sys:String>
 
     <sys:String x:Key="text.went_wrong">运行过程中出现异常，应用即将结束。 如果您无法理解以下错误，请在 Github 上提交问题并详细描述发生的情况</sys:String>

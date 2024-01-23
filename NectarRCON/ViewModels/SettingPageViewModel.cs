@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NectarRCON.Core.Helper;
 using NectarRCON.Interfaces;
@@ -8,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using NectarRCON.Dp;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace NectarRCON.ViewModels;
@@ -17,20 +19,64 @@ public partial class SettingPageViewModel : ObservableObject
     private readonly ILanguageService _languageService;
     private readonly IConfigService _configService;
     private readonly IThemeService _themeService;
+    private readonly RconSettingsDp _rconSettingsDp = DpFile.LoadSingleton<RconSettingsDp>();
 
     [ObservableProperty]
     private int _languageSelectedIndex = -1;
     [ObservableProperty]
     private int _themeSelectedIndex = -1;
+    
+    [ObservableProperty]
+    private bool _rconAutoReconnect;
+    
+    [ObservableProperty]
+    private bool _isKeepConnectionWindowOpen;
 
     [ObservableProperty]
-    private ObservableCollection<string> _languages = new();
+    private ObservableCollection<string> _rconEncoding = [];
+    
+    [ObservableProperty]
+    private string _selectedRconEncoding;
+
+    [ObservableProperty]
+    private ObservableCollection<string> _languages = [];
+    
     public SettingPageViewModel()
     {
         _languageService = App.GetService<ILanguageService>();
         _configService = App.GetService<IConfigService>();
         _themeService = App.GetService<IThemeService>();
+
+        RconAutoReconnect = _rconSettingsDp.AutoReconnect;
+        IsKeepConnectionWindowOpen = _rconSettingsDp.IsKeepConnectionWindowOpen;
+        
+        RconEncoding.Clear();
+        foreach (var encoding in Enum.GetNames(typeof(RconEncoding)))
+        {
+            RconEncoding.Add(encoding);
+        }
+        
+        SelectedRconEncoding = _rconSettingsDp.Encoding.ToString();
     }
+
+    partial void OnRconAutoReconnectChanged(bool value)
+    {
+        _rconSettingsDp.AutoReconnect = value;
+        _rconSettingsDp.Save();
+    }
+
+    partial void OnIsKeepConnectionWindowOpenChanged(bool value)
+    {
+        _rconSettingsDp.IsKeepConnectionWindowOpen = value;
+        _rconSettingsDp.Save();
+    }
+
+    partial void OnSelectedRconEncodingChanged(string value)
+    {
+        _rconSettingsDp.Encoding = Enum.GetValues<RconEncoding>().FirstOrDefault(e => e.ToString() == value);
+        _rconSettingsDp.Save();
+    }
+
     [RelayCommand]
     public void PageLoad(RoutedEventArgs e)
     {

@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NectarRCON.Updater\NectarRCON.Updater.csproj" />
-  </ItemGroup>
-
 </Project>

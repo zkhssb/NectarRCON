@@ -53,7 +53,6 @@ A tool I came up with while learning WPF. The code may not be aesthetically plea
 
 | Name                        | Address                         |
 | --------------------------- | ------------------------------- |
-| RconClient                  | http://dnsclient.michaco.net/   |
 | WPF-UI (Deprecated Version) | https://github.com/lepoco/wpfui |
 
 ## Screenshots

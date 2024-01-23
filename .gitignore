@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# NectarRcon Config
+config.json
+servers.json
+passwords.json
+
 # User-specific files
 *.rsuser
 *.suo

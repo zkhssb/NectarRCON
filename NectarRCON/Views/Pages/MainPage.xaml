@@ -13,6 +13,9 @@
     <ui:UiPage.DataContext>
         <vm:MainPageViewModel/>
     </ui:UiPage.DataContext>
+    <ui:UiPage.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </ui:UiPage.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger
             EventName="Loaded">
@@ -78,5 +81,59 @@
                 </i:Interaction.Triggers>
             </Button>
         </Grid>
+        
+        <Grid 
+            Visibility="{Binding IsDisconnection, Converter={StaticResource BooleanToVisibilityConverter}}"
+            Grid.Row="0"
+            Grid.RowSpan="2">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Offset="0.0" Color="#CF202020" />
+                    <GradientStop Offset="1.0" Color="#8F202020" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Border
+                CornerRadius="5"
+                Height="150"
+                Width="200">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource SystemFillColorSolidNeutralBackground}"/>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="30"
+                        Direction="0"
+                        Opacity="0.4"
+                        ShadowDepth="0"
+                        Color="#202020" />
+                </Border.Effect>
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0">
+                                        <TextBlock 
+                                            HorizontalAlignment="Center"
+                                            FontSize="16"
+                                            Text="{DynamicResource ui.main_page.offline.single}"/>
+                                        <TextBlock 
+                                            Margin="0,10,0,0"
+                                            FontSize="14"
+                                            HorizontalAlignment="Center"
+                                            Visibility="{Binding IsMultipleConnection, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Text="{DynamicResource ui.main_page.offline.multiple}"/>
+                    </StackPanel>
+                    <UniformGrid Margin="0,0,0,10" Grid.Row="1" HorizontalAlignment="Center" Columns="2">
+                        <Button Margin="2" HorizontalAlignment="Center" Command="{Binding BackHomeCommand}" Content="{DynamicResource ui.main_page.back_home}"/>
+                        <Button Margin="2" HorizontalAlignment="Center" Command="{Binding ReConnectCommand}" Content="{DynamicResource ui.main_page.re_connect}"/>
+                    </UniformGrid>
+                </Grid>
+                
+                
+            </Border>
+        </Grid>
+        
     </Grid>
 </ui:UiPage>

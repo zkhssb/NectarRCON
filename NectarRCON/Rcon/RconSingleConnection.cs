@@ -4,12 +4,16 @@ using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using NectarRCON.Rcon;
 using System;
+using System.IO;
+using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Windows;
+using NectarRCON.Dp;
 
 namespace NectarRCON.Services;
 public class RconSingleConnection : IRconConnection
 {
+    private readonly RconSettingsDp _settingsDp = DpFile.LoadSingleton<RconSettingsDp>();
     private readonly IServerPasswordService _serverPasswordService;
     private readonly ILanguageService _languageService;
     private readonly IRconConnectionInfoService _rconConnectionInfoService;
@@ -67,7 +71,7 @@ public class RconSingleConnection : IRconConnection
             // 目前支支持了Minecraft,后期会支持更多(嘛..主要是懒)
             _rconClient = AdapterHelpers.CreateAdapterInstance(info.Adapter)
                 ?? throw new InvalidOperationException($"adapter not found: {info.Adapter}");
-
+            _rconClient.SetEncoding(_settingsDp.Encoding.GetEncoding());
             string host = address.Split(":")[0];
             int port = int.Parse(address.Split(":")[1]);
 
@@ -101,12 +105,37 @@ public class RconSingleConnection : IRconConnection
         {
             try
             {
-                string result = _rconClient.Run(command) ?? string.Empty;
+                string result = _rconClient.Run(command);
                 OnMessage?.Invoke(_serverInformation, result);
             }
             catch (Exception ex)
             {
                 Close();
+                if (ex is SocketException or IOException && _settingsDp.AutoReconnect)
+                {
+                    try
+                    {
+                        Connect();
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+
+                    if (IsConnected())
+                    {
+                        try
+                        {
+                            string result = _rconClient.Run(command);
+                            OnMessage?.Invoke(_serverInformation, result);
+                            return;
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
+                    }
+                }
                 MessageBox.Show($"{_languageService.GetKey("text.error")}\n{ex.Message}", ex.GetType().FullName, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

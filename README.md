@@ -56,7 +56,6 @@ NectarRCON
 
 | 名字                      | 地址                            |
 | ------------------------- | ------------------------------- |
-| RconClient                | http://dnsclient.michaco.net/   |
 | WPF-UI (作者已废弃的版本) | https://github.com/lepoco/wpfui |
 
 ## 部分截图

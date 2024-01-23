@@ -1,6 +1,7 @@
 ﻿using NectarRCON.Export.Client;
 using NectarRCON.Export.Interfaces;
 using System.ComponentModel;
+using System.Text;
 
 namespace NectarRCON.Adapter.Minecraft
 {
@@ -11,8 +12,13 @@ namespace NectarRCON.Adapter.Minecraft
         private static readonly int MaxMessageSize = 4110;
 
         private readonly MemoryStream _buffer = new();
-        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1);
-        private int lastId = 0;
+        private readonly SemaphoreSlim _semaphore = new(1);
+        private int _lastId;
+        /// <summary>
+        /// 编码
+        /// 默认编码 UTF8
+        /// </summary>
+        private new Encoding _encoding = Encoding.UTF8;
 
         public void Disconnect()
         {
@@ -56,6 +62,14 @@ namespace NectarRCON.Adapter.Minecraft
             }
         }
 
+        public Encoding GetEncoding()
+            => _encoding;
+
+        public void SetEncoding(Encoding encoding)
+        {
+            _encoding = encoding;
+        }
+
         public bool Connect(string address, int port)
         {
             _semaphore.Wait();
@@ -76,7 +90,7 @@ namespace NectarRCON.Adapter.Minecraft
             try
             {
                 Packet packet = Send(new Packet(PacketType.Authenticate, password));
-                return packet.Id == lastId;
+                return packet.Id == _lastId;
             }
             finally
             {
@@ -86,9 +100,9 @@ namespace NectarRCON.Adapter.Minecraft
 
         private Packet Send(Packet packet)
         {
-            Interlocked.Increment(ref lastId);
-            packet.SetId(lastId);
-            return PacketEncoder.Decode(Send(packet.Encode()));
+            Interlocked.Increment(ref _lastId);
+            packet.SetId(_lastId);
+            return PacketEncoder.Decode(Send(packet.Encode(_encoding)), _encoding);
         }
     }
 }
