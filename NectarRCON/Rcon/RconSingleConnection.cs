@@ -113,7 +113,15 @@ public class RconSingleConnection : IRconConnection
                 Close();
                 if (ex is SocketException or IOException && _settingsDp.AutoReconnect)
                 {
-                    Connect();
+                    try
+                    {
+                        Connect();
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+
                     if (IsConnected())
                     {
                         try
