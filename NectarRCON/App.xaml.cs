@@ -9,7 +9,9 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using Microsoft.Extensions.Logging;
 using NectarRCON.Dp;
+using Serilog;
 using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Mvvm.Services;
 
@@ -19,10 +21,22 @@ namespace NectarRCON;
 /// </summary>
 public partial class App
 {
-    private static readonly IHost _host = Host
+    private static readonly ILoggerFactory LoggerFactory = new LoggerFactory();
+    private static readonly IHost Host = Microsoft.Extensions.Hosting.Host
         .CreateDefaultBuilder()
+        .ConfigureLogging(builder =>
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File($"logs/program/log.log", rollingInterval: RollingInterval.Minute, flushToDiskInterval: TimeSpan.FromSeconds(1))
+                .CreateLogger();
+            
+            builder.AddSerilog();
+        })
         .ConfigureServices((context, services) =>
         {
+            services.AddSingleton(LoggerFactory);
+            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
+            
             services.AddHostedService<ApplicationHostService>();
 
             services.AddSingleton<ILanguageService, LanguageService>();
@@ -57,13 +71,13 @@ public partial class App
     public static T GetService<T>()
         where T : class
     {
-        return (_host.Services.GetService(typeof(T)) as T)!;
+        return (Host.Services.GetService(typeof(T)) as T)!;
     }
 
     public static T GetService<T>(Type type)
     where T : class
     {
-        return (_host.Services.GetServices<T>().Where(t => t.GetType() == type).FirstOrDefault())!;
+        return Host.Services.GetServices<T>().FirstOrDefault(t => t.GetType() == type)!;
     }
 
     private async void OnStartup(object sender, StartupEventArgs e)
@@ -75,12 +89,12 @@ public partial class App
             rconEncoding.GetEncoding();
         }
         
-        await _host.StartAsync();
+        await Host.StartAsync();
     }
 
     private async void OnExit(object sender, ExitEventArgs e)
     {
-        await _host.StopAsync();
-        _host.Dispose();
+        await Host.StopAsync();
+        Host.Dispose();
     }
 }
