@@ -27,7 +27,7 @@ public partial class App
         .ConfigureLogging(builder =>
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File($"logs/program/log.log", rollingInterval: RollingInterval.Minute, flushToDiskInterval: TimeSpan.FromSeconds(1))
+                .WriteTo.File($"logs/program/log{DateTime.Now:yyyyMMddhhmm}.log", rollingInterval: RollingInterval.Infinite, flushToDiskInterval: TimeSpan.FromSeconds(1))
                 .CreateLogger();
             
             builder.AddSerilog();
