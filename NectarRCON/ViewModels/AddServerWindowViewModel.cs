@@ -10,7 +10,7 @@ public partial class AddServerWindowViewModel : ObservableObject
 {
     private readonly IServerInformationService _serverInformationService;
     private readonly ILanguageService _languageService;
-    private AddServerWindow? _serverWindow = null;
+    private AddServerWindow? _serverWindow;
     [ObservableProperty]
     private string _serverName = "Rcon";
     [ObservableProperty]
@@ -27,18 +27,19 @@ public partial class AddServerWindowViewModel : ObservableObject
         _serverWindow = window;
     }
     [RelayCommand]
-    public void Ok()
+    private void Ok()
     {
-        if (string.IsNullOrWhiteSpace(_serverName) || string.IsNullOrWhiteSpace(_serverAddress))
+        ServerAddress = ServerAddress.Trim();
+        if (string.IsNullOrWhiteSpace(ServerName) || string.IsNullOrWhiteSpace(ServerAddress))
         {
             MessageBox.Show(_languageService.GetKey("ui.add_server_window.null_text"), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
-        ServerInformation information = new ServerInformation()
+        var information = new ServerInformation()
         {
-            Name = _serverName,
-            Address = _serverAddress,
-            Port = ushort.Parse(_serverPort)
+            Name = ServerName,
+            Address = ServerAddress,
+            Port = ushort.Parse(ServerPort)
         };
         if (_serverInformationService.ServerIsExist(information.Name))
         {

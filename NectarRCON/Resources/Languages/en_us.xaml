@@ -26,6 +26,8 @@
     <sys:String x:Key="ui.settings.rcon.auto_reconnect">Auto Reconnect</sys:String>
     <sys:String x:Key="ui.settings.rcon.is_keep_connection_window_open">KeepConnectionWindowOpen</sys:String>
     <sys:String x:Key="ui.settings.rcon.encoding">Encoding</sys:String>
+    <sys:String x:Key="ui.menu.log.clear_program">Clear Program Logs</sys:String>
+    <sys:String x:Key="ui.menu.log.clear_program.ask">Do you want to clear program logs?</sys:String>
     
     <sys:String x:Key="ui.server_page.menu.open">Connect</sys:String>
     <sys:String x:Key="ui.server_page.menu.edit">Edit</sys:String>

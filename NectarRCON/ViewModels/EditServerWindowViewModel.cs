@@ -27,12 +27,12 @@ public partial class EditServerWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void Load(RoutedEventArgs e)
+    private void Load(RoutedEventArgs e)
     {
         _window = e.Source as UiWindow;
         SelectServer = _serverPasswordService.GetSelect();
         Port = _selectServer?.Port.ToString() ?? "0";
-        Address = _selectServer?.Address.ToString() ?? "localhost";
+        Address = _selectServer?.Address ?? "localhost";
     }
     [RelayCommand]
     public void Exit()
@@ -40,9 +40,10 @@ public partial class EditServerWindowViewModel : ObservableObject
         _window?.Close();
     }
     [RelayCommand]
-    public void Ok()
+    private void Ok()
     {
-        if (string.IsNullOrWhiteSpace(_selectServer?.Address))
+        Address = Address.Trim();
+        if (string.IsNullOrWhiteSpace(_selectServer?.Address) || string.IsNullOrEmpty(Address))
             MessageBox.Show(_languageService.GetKey("ui.add_server_window.null_text"), _languageService.GetKey("text.error"), MessageBoxButton.OK, MessageBoxImage.Error);
         else
         {

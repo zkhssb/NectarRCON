@@ -6,23 +6,42 @@ using NectarRCON.Services;
 using NectarRCON.ViewModels;
 using NectarRCON.Windows;
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using Microsoft.Extensions.Logging;
 using NectarRCON.Dp;
+using Serilog;
 using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Mvvm.Services;
 
 namespace NectarRCON;
+
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App
 {
-    private static readonly IHost _host = Host
+    private static readonly ILoggerFactory LoggerFactory = new LoggerFactory();
+    private static string LogFileName = $"logs/program/log{DateTime.Now:yyyyMMddhhmm}.log";
+
+    private static readonly IHost Host = Microsoft.Extensions.Hosting.Host
         .CreateDefaultBuilder()
+        .ConfigureLogging(builder =>
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File(LogFileName,
+                    rollingInterval: RollingInterval.Infinite, flushToDiskInterval: TimeSpan.FromSeconds(1))
+                .CreateLogger();
+
+            builder.AddSerilog();
+        })
         .ConfigureServices((context, services) =>
         {
+            services.AddSingleton(LoggerFactory);
+            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
+
             services.AddHostedService<ApplicationHostService>();
 
             services.AddSingleton<ILanguageService, LanguageService>();
@@ -52,18 +71,18 @@ public partial class App
 
             services.AddTransient<AddServerWindow>();
             services.AddTransient<AddServerWindowViewModel>();
-
         }).Build();
+
     public static T GetService<T>()
         where T : class
     {
-        return (_host.Services.GetService(typeof(T)) as T)!;
+        return (Host.Services.GetService(typeof(T)) as T)!;
     }
 
     public static T GetService<T>(Type type)
-    where T : class
+        where T : class
     {
-        return (_host.Services.GetServices<T>().Where(t => t.GetType() == type).FirstOrDefault())!;
+        return Host.Services.GetServices<T>().FirstOrDefault(t => t.GetType() == type)!;
     }
 
     private async void OnStartup(object sender, StartupEventArgs e)
@@ -74,13 +93,26 @@ public partial class App
         {
             rconEncoding.GetEncoding();
         }
-        
-        await _host.StartAsync();
+
+        AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        await Host.StartAsync();
+    }
+
+    private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        var exception = e.ExceptionObject as Exception;
+        Log.Error("未经处理的异常: {0}", exception);
+
+        MessageBox.Show(
+            exception +
+            $"\n\n程序遇到异常,即将退出!\n建议前往Github提交Issue\n请前往日志查看详细信息!\nCheck log: {Path.Combine(Environment.CurrentDirectory, LogFileName).Replace("\\", "/")}",
+            "程序崩溃", MessageBoxButton.OK, MessageBoxImage.Error);
+        Environment.Exit(1);
     }
 
     private async void OnExit(object sender, ExitEventArgs e)
     {
-        await _host.StopAsync();
-        _host.Dispose();
+        await Host.StopAsync();
+        Host.Dispose();
     }
 }

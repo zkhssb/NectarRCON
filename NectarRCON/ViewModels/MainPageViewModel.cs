@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NectarRCON.Interfaces;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using NectarRCON.Dp;
+using Serilog;
 using Wpf.Ui.Mvvm.Contracts;
 using MessageBox = System.Windows.MessageBox;
 using TextBox = Wpf.Ui.Controls.TextBox;
@@ -65,6 +67,7 @@ public partial class MainPageViewModel : ObservableObject
 
     private void OnMessage(ServerInformation info, string msg)
     {
+        Log.Information("[OnMessage] {name}({adapter}) -> {msg}", info.Name, string.IsNullOrEmpty(info.Adapter) ? "TCPRcon" : info.Adapter, string.IsNullOrEmpty(msg) ? "$empty$" : msg);
         string logMsg = string.IsNullOrEmpty(msg)
             ? _languageService.GetKey("ui.main_page.successful")
             : msg;
@@ -74,7 +77,7 @@ public partial class MainPageViewModel : ObservableObject
 
     private void OnClosed(ServerInformation info)
     {
-        LogText += _logService.Log($"{info.Name}\t{_languageService.GetKey("text.server.closed")}");
+        LogText += _logService.Log($"{info.Name} {_languageService.GetKey("text.server.closed")}");
         IsDisconnection = !_rconConnectService.IsConnected();
     }
 
@@ -92,6 +95,7 @@ public partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     private async void ReConnect()
     {
+        Log.Information($"[ReConnectCommand] 正在准备重连");
         if (_rconConnectService.IsConnected())
             _rconConnectService.Close();
         IsDisconnection = false;
@@ -100,6 +104,8 @@ public partial class MainPageViewModel : ObservableObject
 
     private async Task ConnectAsync()
     {
+        Log.Information($"[ConnectAsync] 准备连接到服务器");
+        
         IsMultipleConnection = _rconConnectionInfoService.HasMultipleInformation;
         _rconConnectService.OnConnected -= OnConnected;
         _rconConnectService.OnMessage -= OnMessage;
@@ -117,6 +123,8 @@ public partial class MainPageViewModel : ObservableObject
             {
                 IsLoaded = true,
             });
+            
+            Log.Information($"[ConnectAsync] 连接服务: {_rconConnectService.GetType().FullName}, 是否为多连接: {IsMultipleConnection}");
 
             _logTextBox = (TextBox)LogicalTreeHelper.FindLogicalNode(_page, "LogText");
             LogText += _logService.Log(_languageService.GetKey("text.server.start"));
@@ -126,18 +134,9 @@ public partial class MainPageViewModel : ObservableObject
             _rconConnectService.OnClosed += OnClosed;
             await Task.Run(_rconConnectService.Connect);
         }
-        catch (SocketException ex)
-        {
-            var msg = _languageService.GetKey("text.server.connect.fail.text")
-                .Replace("\\n", "\n")
-                .Replace("%s", ex.Message);
-            _messageBoxService.Show(msg, _languageService.GetKey("text.error"), MessageBoxButton.OK,
-                MessageBoxImage.Error);
-            LogText += _logService.Log(msg);
-            _logTextBox?.ScrollToEnd();
-        }
         catch (AuthenticationException ex)
         {
+            Log.Error($"[ConnectAsync] 认证失败: {ex.Message}");
             var msg = ex.Message + _languageService.GetKey("text.server.connect.auth_fail")
                 .Replace("\\n", "\n");
             _messageBoxService.Show(msg, _languageService.GetKey("text.error"), MessageBoxButton.OK,
@@ -148,6 +147,18 @@ public partial class MainPageViewModel : ObservableObject
             _navigationService.Navigate(_rconConnectionInfoService.HasMultipleInformation
                 ? typeof(GroupPage)
                 : typeof(ServersPage));
+        }
+        catch (Exception ex)
+        {
+            Log.Error($"[ConnectAsync] 连接遇到错误: {ex}");
+            
+            var msg = _languageService.GetKey("text.server.connect.fail.text")
+                .Replace("\\n", "\n")
+                .Replace("%s", ex.Message);
+            _messageBoxService.Show(msg, _languageService.GetKey("text.error"), MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            LogText += _logService.Log(msg);
+            _logTextBox?.ScrollToEnd();
         }
         finally
         {
@@ -164,9 +175,15 @@ public partial class MainPageViewModel : ObservableObject
         IsDisconnection = !_rconConnectService.IsConnected();
     }
 
+    partial void OnIsDisconnectionChanged(bool value)
+    {
+        Log.Information("当前客户端状态: {0}", _rconConnectService.IsConnected() ? "在线" : "离线");
+    }
+
     private void OnConnected(ServerInformation info)
     {
-        LogText += _logService.Log($"$ {info.Name}\t{_languageService.GetKey("text.server.connected")}");
+        Log.Information("[OnConnected] {name}({adapter})", info.Name, string.IsNullOrEmpty(info.Adapter) ? "TCPRcon" : info.Adapter);
+        LogText += _logService.Log($"$ {info.Name} {_languageService.GetKey("text.server.connected")}");
         IsDisconnection = false;
     }
 
@@ -196,6 +213,7 @@ public partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     private void Run()
     {
+        Log.Information("[Run] {0}", CommandText);
         if (_rconConnectService.IsConnected())
         {
             LogText += _logService.Log($"> {CommandText}");

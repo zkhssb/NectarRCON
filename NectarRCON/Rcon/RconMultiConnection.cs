@@ -11,13 +11,19 @@ using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Windows.Controls;
 using NectarRCON.Dp;
+using Serilog;
 
 namespace NectarRCON.Services
 {
     /// <summary>
     /// Rcon多客户端连接服务
     /// </summary>
-    internal class RconMultiConnection : IRconConnection, IDisposable
+    internal class RconMultiConnection(
+        IServerPasswordService serverPasswordService,
+        ILanguageService languageService,
+        IRconConnectionInfoService rconConnectionInfoService,
+        IMessageBoxService messageBoxService)
+        : IRconConnection, IDisposable
     {
         private readonly RconSettingsDp _settingsDp = DpFile.LoadSingleton<RconSettingsDp>();
         public event MessageEvent? OnMessage;
@@ -25,21 +31,8 @@ namespace NectarRCON.Services
         public event RconEvent? OnConnected;
         public event RconEvent? OnConnecting;
 
-        private readonly IServerPasswordService _serverPasswordService;
-        private readonly ILanguageService _languageService;
-        private readonly IRconConnectionInfoService _rconConnectionInfoService;
-        private readonly IMessageBoxService _messageBoxService;
-
         private readonly Dictionary<ServerInformation,IRconAdapter> _connections = new();
-        private bool _isConnecting = false;
-
-        public RconMultiConnection(IServerPasswordService serverPasswordService, ILanguageService languageService, IRconConnectionInfoService rconConnectionInfoService, IMessageBoxService messageBoxService)
-        {
-            _serverPasswordService = serverPasswordService;
-            _languageService = languageService;
-            _rconConnectionInfoService = rconConnectionInfoService;
-            _messageBoxService = messageBoxService;
-        }
+        private bool _isConnecting;
 
         public void Close()
         {
@@ -54,7 +47,7 @@ namespace NectarRCON.Services
         {
             Close();
             _isConnecting = true;
-            var servers = _rconConnectionInfoService.GetInformation();
+            var servers = rconConnectionInfoService.GetInformation();
             try
             {
                 foreach (ServerInformation info in servers)
@@ -64,7 +57,7 @@ namespace NectarRCON.Services
                     string address = DNSHelpers.SRVQuery(info.Address);
                     if (string.IsNullOrEmpty(address)) // 如果没有SRV记录,就按照原来的样子设置服务器
                         address = $"{info.Address.Replace("localhost", "127.0.0.1")}:{info.Port}";
-                    ServerPassword? serverPassword = _serverPasswordService.Get(info); // 从设置中读取Rcon密码
+                    ServerPassword? serverPassword = serverPasswordService.Get(info); // 从设置中读取Rcon密码
                     string password = serverPassword?.Password ?? string.Empty;
 
                     // 创建对应的Rcon客户端实例
@@ -72,9 +65,11 @@ namespace NectarRCON.Services
                     IRconAdapter adapter = AdapterHelpers.CreateAdapterInstance(info.Adapter)
                         ?? throw new InvalidOperationException($"adapter not found: {info.Adapter}");
 
-                    string host = address.Split(":")[0];
-                    int port = int.Parse(address.Split(":")[1]);
+                    var host = address.Split(":")[0];
+                    var port = int.Parse(address.Split(":")[1]);
 
+                    Log.Information("[RconMultiConnection] Connecting to {host}:{port}", host, port);
+                    
                     try
                     {
                         adapter.Connect(host, port);
@@ -89,7 +84,7 @@ namespace NectarRCON.Services
                     catch (Exception ex)
                     {
                         OnClosed?.Invoke(info);
-                        _messageBoxService.Show(ex, $"Server: \"{info.Name}\"");
+                        messageBoxService.Show(ex, $"Server: \"{info.Name}\"");
                     }
 
                     //设置编码
@@ -105,7 +100,7 @@ namespace NectarRCON.Services
         }
 
         public bool IsConnected()
-            => _connections.Where(e => e.Value.IsConnected).Any();
+            => _connections.Any(e => e.Value.IsConnected);
 
         public bool IsConnecting()
             => _isConnecting;
@@ -126,12 +121,12 @@ namespace NectarRCON.Services
                     {
                         connection.Dispose(); // 内部会调用Close
                         OnClosed?.Invoke(info);
-                        OnMessage?.Invoke(info, _languageService.GetKey("service.rcon.offline"));
+                        OnMessage?.Invoke(info, languageService.GetKey("service.rcon.offline"));
                     }
                 }
                 else
                 {
-                    OnMessage?.Invoke(info, _languageService.GetKey("service.rcon.offline"));
+                    OnMessage?.Invoke(info, languageService.GetKey("service.rcon.offline"));
                 }
             }
         }

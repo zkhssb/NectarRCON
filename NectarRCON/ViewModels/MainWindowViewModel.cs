@@ -1,13 +1,18 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows;
+using Serilog;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Controls.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
+using MessageBox = System.Windows.MessageBox;
 
 namespace NectarRCON.ViewModels
 {
@@ -16,6 +21,7 @@ namespace NectarRCON.ViewModels
         [ObservableProperty]
         private ObservableCollection<INavigationControl> _navigationItems = new();
         private readonly INavigationService _navigationService;
+        private readonly ILanguageService _languageService;
         [ObservableProperty]
         private bool _mainPageIsLoaded;
         public MainWindowViewModel(INavigationService navigationService, ILanguageService languageService)
@@ -60,6 +66,7 @@ namespace NectarRCON.ViewModels
                 }
             };
             _navigationService = navigationService;
+            _languageService = languageService;
             WeakReferenceMessenger.Default.Register<MainPageLoadValueMessage>(this, OnMainPageChange);
         }
         public void OnMainPageChange(object sender, MainPageLoadValueMessage message)
@@ -67,19 +74,39 @@ namespace NectarRCON.ViewModels
             MainPageIsLoaded = message.IsLoaded;
         }
         [RelayCommand]
-        public void OnLoad()
+        private void OnLoad()
         {
             _navigationService.Navigate(2);
         }
         [RelayCommand]
-        public void ClearButtonClick()
+        private void ClearButtonClick()
         {
             WeakReferenceMessenger.Default.Send(new ClearLogValueMessage());
         }
         [RelayCommand]
-        public void ChangePage(string index)
+        private void ChangePage(string index)
         {
             _navigationService.Navigate(int.Parse(index));
+        }
+
+        [RelayCommand]
+        private void ClearProgramLogs()
+        {
+            if (MessageBox.Show(_languageService.GetKey("ui.menu.log.clear_program.ask"), "NectarRcon", MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+            Log.Information("Clear program logs");
+            foreach (var logFile in Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "logs", "program"), "*.log"))
+            {
+                try
+                {
+                    Log.Information("Delete log file: {0}", logFile);
+                    File.Delete(logFile);
+                }
+                catch(Exception ex)
+                {
+                    Log.Error(ex, "Delete log file failed: {0}", logFile);
+                }   
+            }
         }
     }
 }

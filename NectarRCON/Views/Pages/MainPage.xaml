@@ -15,6 +15,25 @@
     </ui:UiPage.DataContext>
     <ui:UiPage.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <ControlTemplate x:Key="NoWordSpacingTextBoxTemplate" TargetType="{x:Type TextBox}">
+            <Grid>
+                <ScrollViewer x:Name="PART_ContentHost"
+                              Focusable="false"
+                              HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Auto"
+                              VerticalContentAlignment="Top"
+                              IsTabStop="False">
+                    <Grid Background="{TemplateBinding Background}"
+                          Margin="{TemplateBinding Padding}">
+                        <TextBlock Text="{TemplateBinding Text}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Top"
+                                   Margin="0,0,0,2" />
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </ControlTemplate>
     </ui:UiPage.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger
@@ -36,10 +55,12 @@
         <ui:TextBox
             ClearButtonEnabled="False"
             Name="LogText"
+            FontFamily="Consolas"
             BorderThickness="0"
             Margin="5"
             Grid.Row="0"
             TextWrapping="Wrap"
+            TextAlignment="Left"
             AcceptsReturn="True"
             VerticalScrollBarVisibility="Visible"
             VerticalContentAlignment="Top"
