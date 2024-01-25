@@ -26,6 +26,8 @@
     <sys:String x:Key="ui.settings.rcon.auto_reconnect">斷綫自動重連</sys:String>
     <sys:String x:Key="ui.settings.rcon.is_keep_connection_window_open">斷線不回到主頁</sys:String>
     <sys:String x:Key="ui.settings.rcon.encoding">文本編碼</sys:String>
+    <sys:String x:Key="ui.menu.log.clear_program">清除程式日誌</sys:String>
+    <sys:String x:Key="ui.menu.log.clear_program.ask">您是否要清除程式日誌？</sys:String>
 
     <sys:String x:Key="ui.server_page.menu.open">連線</sys:String>
     <sys:String x:Key="ui.server_page.menu.edit">編輯</sys:String>
