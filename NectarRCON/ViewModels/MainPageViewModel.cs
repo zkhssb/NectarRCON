@@ -77,7 +77,7 @@ public partial class MainPageViewModel : ObservableObject
 
     private void OnClosed(ServerInformation info)
     {
-        LogText += _logService.Log($"{info.Name}\t{_languageService.GetKey("text.server.closed")}");
+        LogText += _logService.Log($"{info.Name} {_languageService.GetKey("text.server.closed")}");
         IsDisconnection = !_rconConnectService.IsConnected();
     }
 
@@ -183,7 +183,7 @@ public partial class MainPageViewModel : ObservableObject
     private void OnConnected(ServerInformation info)
     {
         Log.Information("[OnConnected] {name}({adapter})", info.Name, string.IsNullOrEmpty(info.Adapter) ? "TCPRcon" : info.Adapter);
-        LogText += _logService.Log($"$ {info.Name}\t{_languageService.GetKey("text.server.connected")}");
+        LogText += _logService.Log($"$ {info.Name} {_languageService.GetKey("text.server.connected")}");
         IsDisconnection = false;
     }
 
