@@ -75,8 +75,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ui:TextBox 
-                Text="{Binding CommandText}"
+            <ui:AutoSuggestBox 
+                x:Name="CommandInputBox"
+                Icon="Empty"
+                Text="{Binding CommandText, UpdateSourceTrigger=PropertyChanged}"
+                ItemsSource="{Binding CommandList}"
                 Grid.Column="0"
                 BorderThickness="0"
                 PlaceholderText="/">
@@ -88,7 +91,7 @@
                             Command="{Binding KeyDownCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </ui:TextBox>
+            </ui:AutoSuggestBox>
             <Button 
                 Grid.Column="1"
                 Margin="10,0,0,0"

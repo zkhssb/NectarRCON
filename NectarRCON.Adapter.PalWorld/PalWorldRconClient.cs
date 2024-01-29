@@ -1,15 +1,14 @@
-﻿using NectarRCON.Export.Client;
-using NectarRCON.Export.Interfaces;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Text;
+using NectarRCON.Export.Client;
+using NectarRCON.Export.Interfaces;
 
-namespace NectarRCON.Adapter.Minecraft
-{
-    [Description("rcon.minecraft")]
-    public class MinecraftRconClient : BaseTcpClient, IRconAdapter
+namespace NectarRCON.Adapter.PalWorld;
+
+    [Description("rcon.palworld")]
+    public class PalWorldRconClient : BaseTcpClient, IRconAdapter
     {
-        // https://wiki.vg/RCON #Fragmentation
-        private static readonly int MaxMessageSize = 4110;
+        private const int MaxMessageSize = 4110;
 
         private readonly MemoryStream _buffer = new();
         private readonly SemaphoreSlim _semaphore = new(1);
@@ -50,10 +49,12 @@ namespace NectarRCON.Adapter.Minecraft
 
         public string Run(string command)
         {
+            if(command.StartsWith("/"))
+                command = command[1..];
             _semaphore.Wait();
             try
             {
-                Packet response = Send(new Packet(PacketType.Command, command));
+                var response = Send(new Packet(PacketType.ExecCommand, command));
                 return response.Body;
             }
             finally
@@ -70,9 +71,17 @@ namespace NectarRCON.Adapter.Minecraft
             _encoding = encoding;
         }
 
-        public IReadOnlyList<string> Commands { get; } = new List<string>
+        public IReadOnlyList<string> Commands { get; } = new List<string>()
         {
-            "help"
+            "Shutdown {Seconds} {MessageText}",
+            "DoExit",
+            "KickPlayer {Steam Id}",
+            "BanPlayer {Steam Id}",
+            "Broadcast {MessageText}",
+            "TeleportToPlayer {Steam Id}",
+            "TeleportToMe {Steam Id}",
+            "ShowPlayers",
+            "Info"
         };
 
         public bool Connect(string address, int port)
@@ -94,7 +103,7 @@ namespace NectarRCON.Adapter.Minecraft
             _semaphore.Wait();
             try
             {
-                Packet packet = Send(new Packet(PacketType.Authenticate, password));
+                Packet packet = Send(new Packet(PacketType.ClientAuth, password));
                 return packet.Id == _lastId;
             }
             finally
@@ -107,7 +116,6 @@ namespace NectarRCON.Adapter.Minecraft
         {
             Interlocked.Increment(ref _lastId);
             packet.SetId(_lastId);
-            return PacketEncoder.Decode(Send(packet.Encode(_encoding)), _encoding);
+            return Packet.Decode(Send(packet.Encode(_encoding)), _encoding);
         }
     }
-}

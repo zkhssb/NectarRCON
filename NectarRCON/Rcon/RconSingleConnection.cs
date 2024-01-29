@@ -4,6 +4,7 @@ using NectarRCON.Interfaces;
 using NectarRCON.Models;
 using NectarRCON.Rcon;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Security.Authentication;
@@ -53,11 +54,7 @@ public class RconSingleConnection(
         {
             if (IsConnected() && _rconClient != null)
                 Close();
-            // 准备开始连接,先解析这个地址有没有SRV记录
-            string address = DNSHelpers.SRVQuery(info.Address);
-            if (string.IsNullOrEmpty(address)) // 如果没有SRV记录,就按照原来的样子设置服务器
-                address = $"{info.Address.Replace("localhost", "127.0.0.1")}:{info.Port}";
-
+            var address = $"{info.Address.Replace("localhost", "127.0.0.1")}:{info.Port}";
 
             ServerPassword? serverPassword = serverPasswordService.Get(info);
             string password = serverPassword?.Password ?? string.Empty;
@@ -69,7 +66,8 @@ public class RconSingleConnection(
             _rconClient.SetEncoding(_settingsDp.Encoding.GetEncoding());
             var host = address.Split(":")[0];
             var port = int.Parse(address.Split(":")[1]);
-
+            
+            Log.Information("[RconSingleConnection] Adapter: {adapter}", _rconClient.GetType().FullName);
             Log.Information("[RconSingleConnection] Connecting to {host}:{port}", host, port);
             
             _rconClient.Connect(host, port); // 连接
@@ -96,6 +94,13 @@ public class RconSingleConnection(
         => _rconClient?.IsConnected ?? false;
     public bool IsConnecting()
         => _connecting;
+
+    /// <summary>
+    /// 获取适配器的命令提示
+    /// </summary>
+    /// <returns></returns>
+    public IReadOnlyList<string> GetCommands() => _rconClient?.Commands ?? Array.Empty<string>();
+    
     public void Send(string command)
     {
         if (IsConnected() && _rconClient != null)

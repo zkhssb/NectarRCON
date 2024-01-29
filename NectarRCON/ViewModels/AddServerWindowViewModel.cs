@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
@@ -17,10 +20,16 @@ public partial class AddServerWindowViewModel : ObservableObject
     private string _serverAddress = "localhost";
     [ObservableProperty]
     private string _serverPort = "25575";
+    [ObservableProperty]
+    private ObservableCollection<string> _rconAdapterList;
+    [ObservableProperty]
+    private int _selectedAdapterIndex;
     public AddServerWindowViewModel(IServerInformationService serverInformationService, ILanguageService languageService)
     {
         _serverInformationService = serverInformationService;
         _languageService = languageService;
+        RconAdapterList = new ObservableCollection<string>(Enum.GetValues<RconAdapter>()
+            .Select(adapter => _languageService.GetKey(adapter.ToAdapterString())).ToList());
     }
     public void SetWindow(AddServerWindow window)
     {
@@ -39,6 +48,7 @@ public partial class AddServerWindowViewModel : ObservableObject
         {
             Name = ServerName,
             Address = ServerAddress,
+            Adapter = ((RconAdapter)SelectedAdapterIndex).ToAdapterString(),
             Port = ushort.Parse(ServerPort)
         };
         if (_serverInformationService.ServerIsExist(information.Name))

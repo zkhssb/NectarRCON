@@ -47,6 +47,10 @@
     <sys:String x:Key="ui.add_server_window.already_exist">A server with the same name already exists, please change your name!</sys:String>
     <sys:String x:Key="ui.add_server_window.null_text">Server name or server address cannot be empty, please change it!</sys:String>
 
+    <sys:String x:Key="ui.server.adapter">Rcon Protocol</sys:String>
+    <sys:String x:Key="rcon.minecraft">Minecraft</sys:String>
+    <sys:String x:Key="rcon.palworld">Palworld</sys:String>
+    
     <sys:String x:Key="ui.about.afdian">Afdian</sys:String>
     <sys:String x:Key="ui.about.mcbbs">MCBBS</sys:String>
     <sys:String x:Key="ui.about.github">Github</sys:String>

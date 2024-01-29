@@ -47,6 +47,10 @@
     <sys:String x:Key="ui.add_server_window.already_exist">相同名稱的伺服器已經存在,請換一個名稱!</sys:String>
     <sys:String x:Key="ui.add_server_window.null_text">伺服器名稱或伺服器地址不可為空,請更改!</sys:String>
 
+    <sys:String x:Key="ui.server.adapter">Rcon 協議</sys:String>
+    <sys:String x:Key="rcon.minecraft">我的世界</sys:String>
+    <sys:String x:Key="rcon.palworld">幻獸帕魯</sys:String>
+    
     <sys:String x:Key="ui.about.afdian">爱发电</sys:String>
     <sys:String x:Key="ui.about.mcbbs">MCBBS</sys:String>
     <sys:String x:Key="ui.about.github">Github</sys:String>

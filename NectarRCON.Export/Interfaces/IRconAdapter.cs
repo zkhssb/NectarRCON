@@ -6,6 +6,8 @@ namespace NectarRCON.Export.Interfaces;
 /// </summary>
 public interface IRconAdapter : IDisposable
 {
+    IReadOnlyList<string> Commands { get; }
+    
     /// <summary>
     /// 已经连接
     /// </summary>

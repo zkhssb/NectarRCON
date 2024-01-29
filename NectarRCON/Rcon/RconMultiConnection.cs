@@ -53,10 +53,7 @@ namespace NectarRCON.Services
                 foreach (ServerInformation info in servers)
                 {
                     OnConnecting?.Invoke(info);
-                    // 准备开始连接,先解析这个地址有没有SRV记录
-                    string address = DNSHelpers.SRVQuery(info.Address);
-                    if (string.IsNullOrEmpty(address)) // 如果没有SRV记录,就按照原来的样子设置服务器
-                        address = $"{info.Address.Replace("localhost", "127.0.0.1")}:{info.Port}";
+                    var address = $"{info.Address.Replace("localhost", "127.0.0.1")}:{info.Port}";
                     ServerPassword? serverPassword = serverPasswordService.Get(info); // 从设置中读取Rcon密码
                     string password = serverPassword?.Password ?? string.Empty;
 
@@ -68,6 +65,7 @@ namespace NectarRCON.Services
                     var host = address.Split(":")[0];
                     var port = int.Parse(address.Split(":")[1]);
 
+                    Log.Information("[RconMultiConnection] Adapter: {adapter}", adapter.GetType().FullName);
                     Log.Information("[RconMultiConnection] Connecting to {host}:{port}", host, port);
                     
                     try

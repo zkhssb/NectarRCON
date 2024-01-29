@@ -1,5 +1,34 @@
 ﻿using System.Text.Json.Serialization;
 namespace NectarRCON.Models;
+public enum RconAdapter
+{
+    Minecraft,
+    Palworld
+}
+
+public static class RconAdapterExtensions
+{
+    public static string ToAdapterString(this RconAdapter adapter)
+    {
+        return adapter switch
+        {
+            RconAdapter.Minecraft => "rcon.minecraft",
+            RconAdapter.Palworld => "rcon.palworld",
+            _ => string.Empty
+        };
+    }
+    
+    public static RconAdapter ToAdapter(this string adapter)
+    {
+        return adapter switch
+        {
+            "rcon.minecraft" => RconAdapter.Minecraft,
+            "rcon.palworld" => RconAdapter.Palworld,
+            _ => RconAdapter.Minecraft
+        };
+    }
+}
+
 public class ServerInformation
 {
     [JsonPropertyName("name")]

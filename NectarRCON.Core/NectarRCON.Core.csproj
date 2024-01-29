@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NectarRCON.Adapter.Minecraft\NectarRCON.Adapter.Minecraft.csproj" />
+    <ProjectReference Include="..\NectarRCON.Adapter.PalWorld\NectarRCON.Adapter.PalWorld.csproj" />
     <ProjectReference Include="..\NectarRCON.Export\NectarRCON.Export.csproj" />
   </ItemGroup>
 

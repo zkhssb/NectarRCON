@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -41,7 +43,7 @@ public partial class MainPageViewModel : ObservableObject
     [ObservableProperty] private string _logText = string.Empty;
     [ObservableProperty] private bool _isMultipleConnection;
     [ObservableProperty] private bool _isDisconnection;
-
+    [ObservableProperty] private ObservableCollection<string> _commandList = [];
     public MainPageViewModel()
     {
         _logService = App.GetService<ILogService>();
@@ -188,6 +190,13 @@ public partial class MainPageViewModel : ObservableObject
         Log.Information("[OnConnected] {name}({adapter})", info.Name, string.IsNullOrEmpty(info.Adapter) ? "TCPRcon" : info.Adapter);
         LogText += _logService.Log($"$ {info.Name} {_languageService.GetKey("text.server.connected")}");
         IsDisconnection = false;
+        
+        // 获取适配器的命令提示
+        // 只有单连接支持获取命令帮助,组服务器不知道都是些什么适配器
+        if (_rconConnectService is RconSingleConnection singleConnection)
+        {
+            CommandList = new ObservableCollection<string>(singleConnection.GetCommands().ToList());
+        }
     }
 
     [RelayCommand]
@@ -216,6 +225,9 @@ public partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     private void Run()
     {
+        if(CommandText.StartsWith("/")) CommandText = CommandText[1..];
+        if(string.IsNullOrWhiteSpace(CommandText)) return;
+        
         Log.Information("[Run] {0}", CommandText);
         if (_rconConnectService.IsConnected())
         {
@@ -223,6 +235,7 @@ public partial class MainPageViewModel : ObservableObject
             _logTextBox?.ScrollToEnd();
             _rconConnectService.Send(CommandText);
             CommandText = string.Empty;
+            _page?.CloseCommandInputBoxPopup();
         }
         else
         {
@@ -237,28 +250,30 @@ public partial class MainPageViewModel : ObservableObject
     private void KeyDown(KeyEventArgs e)
     {
         var textBox = (System.Windows.Controls.TextBox)e.Source;
-        if (e.Key == Key.Enter)
+        switch (e.Key)
         {
-            var text = textBox.Text.Trim();
-            if (string.IsNullOrEmpty(text))
+            case Key.Enter:
             {
-                return;
+                var text = textBox.Text.Trim();
+                if (string.IsNullOrEmpty(text))
+                {
+                    return;
+                }
+                _commandText = text;
+                _historyNode = _historyService.InputCmd(_commandText);
+                Run();
+                break;
             }
-            _commandText = text;
-            _historyNode = _historyService.InputCmd(_commandText);
-            Run();
-        }
-        else if (e.Key == Key.Up)
-        {
-            _historyNode = _historyService.Prev(_historyNode);
-            textBox.Text = _historyNode?.Cmd;
-            textBox.Select(textBox.Text?.Length ?? 0, 0);
-        }
-        else if (e.Key == Key.Down)
-        {
-            _historyNode = _historyService.Next(_historyNode);
-            textBox.Text = _historyNode?.Cmd;
-            textBox.Select(textBox.Text?.Length ?? 0, 0);
+            case Key.Up:
+                _historyNode = _historyService.Prev(_historyNode);
+                textBox.Text = _historyNode?.Cmd ?? string.Empty;
+                textBox.Select(textBox.Text?.Length ?? 0, 0);
+                break;
+            case Key.Down:
+                _historyNode = _historyService.Next(_historyNode);
+                textBox.Text = _historyNode?.Cmd ?? string.Empty;
+                textBox.Select(textBox.Text?.Length ?? 0, 0);
+                break;
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NectarRCON.Interfaces;
 using NectarRCON.Models;
@@ -16,14 +19,20 @@ public partial class EditServerWindowViewModel : ObservableObject
     [ObservableProperty]
     private ServerInformation? _selectServer;
     [ObservableProperty]
+    private ObservableCollection<string> _rconAdapterList;
+    [ObservableProperty]
     private string _port = string.Empty;
     [ObservableProperty]
     private string _address = string.Empty;
+    [ObservableProperty]
+    private int _selectedAdapterIndex;
     public EditServerWindowViewModel()
     {
         _languageService = App.GetService<ILanguageService>();
         _serverPasswordService = App.GetService<IServerPasswordService>();
         _serverInformationService = App.GetService<IServerInformationService>();
+        RconAdapterList = new ObservableCollection<string>(Enum.GetValues<RconAdapter>()
+            .Select(adapter => _languageService.GetKey(adapter.ToAdapterString())).ToList());
     }
 
     [RelayCommand]
@@ -33,6 +42,7 @@ public partial class EditServerWindowViewModel : ObservableObject
         SelectServer = _serverPasswordService.GetSelect();
         Port = _selectServer?.Port.ToString() ?? "0";
         Address = _selectServer?.Address ?? "localhost";
+        SelectedAdapterIndex = Enum.GetValues<RconAdapter>().ToList().IndexOf(_selectServer?.Adapter?.ToAdapter() ?? RconAdapter.Minecraft);
     }
     [RelayCommand]
     public void Exit()
@@ -49,6 +59,7 @@ public partial class EditServerWindowViewModel : ObservableObject
         {
             _selectServer.Port = ushort.Parse(Port);
             _selectServer.Address = Address;
+            _selectServer.Adapter = ((RconAdapter)SelectedAdapterIndex).ToAdapterString();
             _serverInformationService.Update(_selectServer.Name, _selectServer);
             _serverInformationService.Save();
             Exit();

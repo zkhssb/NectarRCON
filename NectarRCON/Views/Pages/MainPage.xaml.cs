@@ -1,4 +1,9 @@
-﻿namespace NectarRCON.Views.Pages
+﻿using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+
+namespace NectarRCON.Views.Pages
 {
     /// <summary>
     /// MainPage.xaml 的交互逻辑
@@ -9,5 +14,11 @@
         {
             InitializeComponent();
         }
+
+        public void CloseCommandInputBoxPopup()
+        {
+            CommandInputBox.IsSuggestionListOpen = false;
+        }
+         
     }
 }
