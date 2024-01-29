@@ -82,7 +82,7 @@
                 PlaceholderText="/">
                 <i:Interaction.Triggers>
                     <i:EventTrigger
-                        EventName="KeyDown">
+                        EventName="PreviewKeyDown">
                         <i:InvokeCommandAction
                             PassEventArgsToCommand="True"
                             Command="{Binding KeyDownCommand}"/>

@@ -47,6 +47,7 @@ public partial class App
             services.AddSingleton<ILanguageService, LanguageService>();
             services.AddSingleton<IConfigService, ConfigService>();
             services.AddSingleton<ILogService, LogService>();
+            services.AddSingleton<IHistoryService, HistoryService>();
             services.AddSingleton<IServerPasswordService, ServerPasswordService>();
 
             services.AddSingleton<IThemeService, ThemeService>();
