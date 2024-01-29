@@ -24,6 +24,7 @@ public partial class MainPageViewModel : ObservableObject
 {
     private static readonly RconSettingsDp RconSettings = DpFile.LoadSingleton<RconSettingsDp>();
     private readonly ILogService _logService;
+    private readonly IHistoryService _historyService;
     private readonly IServerPasswordService _serverPasswordService;
     private IRconConnection _rconConnectService;
     private readonly INavigationService _navigationService;
@@ -34,6 +35,7 @@ public partial class MainPageViewModel : ObservableObject
 
     private MainPage? _page;
     private TextBox? _logTextBox;
+    private HistoryNode? _historyNode;
 
     [ObservableProperty] private string _commandText = string.Empty;
     [ObservableProperty] private string _logText = string.Empty;
@@ -43,6 +45,7 @@ public partial class MainPageViewModel : ObservableObject
     public MainPageViewModel()
     {
         _logService = App.GetService<ILogService>();
+        _historyService = App.GetService<IHistoryService>();
         _serverPasswordService = App.GetService<IServerPasswordService>();
         _navigationService = App.GetService<INavigationService>();
         _languageService = App.GetService<ILanguageService>();
@@ -87,7 +90,7 @@ public partial class MainPageViewModel : ObservableObject
         // GetLogs
         LogText = string.Empty;
         LogText = _logService.GetText();
-        
+
         _page = e.Source as MainPage;
         await ConnectAsync();
     }
@@ -105,7 +108,7 @@ public partial class MainPageViewModel : ObservableObject
     private async Task ConnectAsync()
     {
         Log.Information($"[ConnectAsync] 准备连接到服务器");
-        
+
         IsMultipleConnection = _rconConnectionInfoService.HasMultipleInformation;
         _rconConnectService.OnConnected -= OnConnected;
         _rconConnectService.OnMessage -= OnMessage;
@@ -123,7 +126,7 @@ public partial class MainPageViewModel : ObservableObject
             {
                 IsLoaded = true,
             });
-            
+
             Log.Information($"[ConnectAsync] 连接服务: {_rconConnectService.GetType().FullName}, 是否为多连接: {IsMultipleConnection}");
 
             _logTextBox = (TextBox)LogicalTreeHelper.FindLogicalNode(_page, "LogText");
@@ -151,7 +154,7 @@ public partial class MainPageViewModel : ObservableObject
         catch (Exception ex)
         {
             Log.Error($"[ConnectAsync] 连接遇到错误: {ex}");
-            
+
             var msg = _languageService.GetKey("text.server.connect.fail.text")
                 .Replace("\\n", "\n")
                 .Replace("%s", ex.Message);
@@ -234,10 +237,28 @@ public partial class MainPageViewModel : ObservableObject
     private void KeyDown(KeyEventArgs e)
     {
         var textBox = (System.Windows.Controls.TextBox)e.Source;
-        _commandText = textBox.Text;
         if (e.Key == Key.Enter)
         {
+            var text = textBox.Text.Trim();
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+            _commandText = text;
+            _historyNode = _historyService.InputCmd(_commandText);
             Run();
+        }
+        else if (e.Key == Key.Up)
+        {
+            _historyNode = _historyService.Prev(_historyNode);
+            textBox.Text = _historyNode?.Cmd;
+            textBox.Select(textBox.Text?.Length ?? 0, 0);
+        }
+        else if (e.Key == Key.Down)
+        {
+            _historyNode = _historyService.Next(_historyNode);
+            textBox.Text = _historyNode?.Cmd;
+            textBox.Select(textBox.Text?.Length ?? 0, 0);
         }
     }
 }
